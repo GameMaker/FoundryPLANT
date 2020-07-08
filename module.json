@@ -1,0 +1,23 @@
+{
+    "name": "foundry-plant",
+    "title": "PLANT - PLAyer Needs Tracker",
+    "description": "A tracker/reminder to help DMs meet different players' needs",
+    "authors": [
+        {
+            "name": "Gamemaker",
+            "email": "pouncerproductions@yahoo.com",
+            "url": ""
+        }
+    ]
+    "version": "0.0.1",
+    "minimumCoreVersion": "0.6.4",
+    "compatibleCoreVersion": "0.6.4",
+    "languages": [
+        {
+            "lang": "en",
+            "name": "English",
+            "path": "lang/en.json"
+        }
+    ],
+    "url": "https://github.com/GameMaker/FoundryPlayerNeedTracker"
+ }
