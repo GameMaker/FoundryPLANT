@@ -8,7 +8,7 @@
             "email": "pouncerproductions@yahoo.com",
             "url": ""
         }
-    ]
+    ],
     "version": "0.0.1",
     "minimumCoreVersion": "0.6.4",
     "compatibleCoreVersion": "0.6.4",
@@ -19,5 +19,6 @@
             "path": "lang/en.json"
         }
     ],
-    "url": "https://github.com/GameMaker/FoundryPlayerNeedTracker"
- }
+    "url": "https://github.com/GameMaker/FoundryPlayerNeedTracker",
+    "manifest": "https://github.com/GameMaker/FoundryPlayerNeedTracker/blob/release/module.json"
+}
