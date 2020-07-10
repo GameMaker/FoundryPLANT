@@ -1,2 +1,4 @@
-# Ignore node_modules - you might need to npm install gulp gulp-sass gulp-less if moving to a new machine
+# Ignore node_modules and locally installed npm stuff
+# You might need to npm install gulp gulp-sass gulp-less if moving to a new machine
 node_modules
+package-lock.json
