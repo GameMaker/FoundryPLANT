@@ -7,7 +7,10 @@
     "minimumCoreVersion": "0.6.5",
     "compatibleCoreVersion": "0.6.5",
     "scripts": [],
-    "esmodules": ["scripts/init.mjs"],
+    "esmodules": [
+        "modules/init.mjs",
+        "modules/apps/needs-list.mjs"
+    ],
     "styles": ["styles/init.css"],
     "languages": [{
         "lang": "en",
