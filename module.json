@@ -6,17 +6,13 @@
     "version": "0.0.1",
     "minimumCoreVersion": "0.6.5",
     "compatibleCoreVersion": "0.6.5",
-    "scripts": [
-        "scripts/init.js"
-    ],
-    "esmodules": [],
-    "styles": [],
-    "languages": [
-        {
-            "lang": "en",
-            "name": "English",
-            "path": "lang/en.json"
-        }
-    ],
+    "scripts": [],
+    "esmodules": ["scripts/init.mjs"],
+    "styles": ["styles/init.css"],
+    "languages": [{
+        "lang": "en",
+        "name": "English",
+        "path": "lang/en.json"
+    }],
     "url": "https://github.com/GameMaker/FoundryPLANT"
 }

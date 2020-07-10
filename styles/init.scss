@@ -1,0 +1,13 @@
+$background-parchment-dark: url("/systems/dnd5e/ui/parchment.jpg") repeat;
+$background-header: #666;
+$border: #333;
+$border-active: #833;
+$footer-padding: 4px;
+$footer-size: 32px+2*$footer-padding;
+#fplant-chatneed-btn {
+    cursor: pointer;
+    max-width: 80%;
+    max-height: 40px;
+    margin: auto;
+    background: $background-parchment-dark;
+}
