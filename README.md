@@ -16,4 +16,4 @@ Needs can be whatever you feel like:
 
 FoundryVTT Discord members, in order of addition to the list:
 - @cole for helping me figure out why I couldn't get my module to load in the first place.
-- @forien for letting me review the Quest Log module for overall code structure, and general dev questions
+- @forien for letting me review the Quest Log module for overall code structure, and general dev questions. // TODO - add his patreon and module list.

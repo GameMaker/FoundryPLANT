@@ -14,23 +14,7 @@ export default class Need {
      * @returns {{}}
      */
     static getNeeds() {
-        let entries = [
-            {
-                owner: "Admin 5",
-                goal: "magic item",
-                score: 7
-            },
-            {
-                owner: "FightyGirl",
-                goal: "COMBATTT!",
-                score: 10
-            },
-            {
-                owner: "MethodActor",
-                goal: "Roleplay",
-                score: 3
-            }
-        ];
+        let entries = [];
 
         // TODO - get from player flags
 

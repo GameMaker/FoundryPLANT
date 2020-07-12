@@ -4,3 +4,14 @@
   max-height: 40px;
   margin: auto;
   background: url("/systems/dnd5e/ui/parchment.jpg") repeat; }
+
+.fplant-text-field {
+  background: rgba(255, 255, 240, 0.8);
+  width: auto; }
+
+.fplant-button {
+  margin: 5px; }
+
+.footer {
+  position: absolute;
+  bottom: 20px; }

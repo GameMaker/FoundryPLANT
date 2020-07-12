@@ -1,4 +1,5 @@
 $background-parchment-dark: url("/systems/dnd5e/ui/parchment.jpg") repeat;
+$background-color: rgba(255, 255, 240, 0.8);
 $background-header: #666;
 $border: #333;
 $border-active: #833;
@@ -10,4 +11,18 @@ $footer-size: 32px+2*$footer-padding;
     max-height: 40px;
     margin: auto;
     background: $background-parchment-dark;
+}
+
+.fplant-text-field {
+    background: $background-color;
+    width: auto;
+}
+
+.fplant-button {
+    margin: 5px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 20px;
 }

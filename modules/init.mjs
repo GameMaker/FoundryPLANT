@@ -47,49 +47,58 @@ Hooks.on("renderChatLog", (app, html, data) => {
 
 $(document).keypress(function (e) {
     // TODO - should probably be its own module, frankly.
-    // BUG - Don't go to GM-only if is a player
     switch (e.which) {
         case 33:
-            console.log("Switching to Chat");
             ui.sidebar.activateTab("chat");
             break;
         case 64:
-            console.log("Switching to Combat");
             ui.sidebar.activateTab("combat");
             break;
         case 35:
-            console.log("Switching to Scenes");
-            ui.sidebar.activateTab("scenes");
+            if (game.user.isGM)
+                ui.sidebar.activateTab("scenes");
+            else
+                ui.sidebar.activateTab("actors");
             break;
         case 36:
-            console.log("Switching to Characters");
-            ui.sidebar.activateTab("actors");
+            if (game.user.isGM)
+                ui.sidebar.activateTab("actors");
+            else
+                ui.sidebar.activateTab("items");
             break;
         case 37:
-            console.log("Switching to Items");
-            ui.sidebar.activateTab("items");
+            if (game.user.isGM)
+                ui.sidebar.activateTab("items");
+            else
+                ui.sidebar.activateTab("journal");
             break;
         case 94:
-            console.log("Switching to Journal");
-            ui.sidebar.activateTab("journal");
+            if (game.user.isGM)
+                ui.sidebar.activateTab("journal");
+            else
+                ui.sidebar.activateTab("tables");
             break;
         case 38:
-            console.log("Switching to Tables");
-            ui.sidebar.activateTab("tables");
+            if (game.user.isGM)
+                ui.sidebar.activateTab("tables");
+            else
+                ui.sidebar.activateTab("playlists");
             break;
         case 42:
-            console.log("Switching to Playlists");
-            ui.sidebar.activateTab("playlists");
+            if (game.user.isGM)
+                ui.sidebar.activateTab("playlists");
+            else
+                ui.sidebar.activateTab("compendium");
             break;
         case 40:
-            console.log("Switching to Compendia");
-            ui.sidebar.activateTab("compendium");
+            if (game.user.isGM)
+                ui.sidebar.activateTab("compendium");
+            else
+                ui.sidebar.activateTab("settings");
             break;
         case 41:
-            console.log("Switching to Settings");
-            ui.sidebar.activateTab("settings");
+            if (game.user.isGM)
+                ui.sidebar.activateTab("settings");
             break;
-        default:
-            console.log(e.which);
     }
-})
+});

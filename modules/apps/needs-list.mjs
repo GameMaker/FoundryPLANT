@@ -43,5 +43,41 @@ export default class NeedsList extends Application {
     activateListeners(html) {
         super.activateListeners(html);
 
+        // Click to make a new request
+        html.on("click", "#fplant-needlist-req-btn", () => {
+            let needtext = $("#fplant-needlist-text")[0].value;
+            // TODO - Entities.setflag, then possibly re-jigger so the needs list
+            // is built off that flag. Hopefully that will re-sync?
+            let newNeed = {
+                owner: game.users.current.name,
+                goal: needtext,
+                score: 1
+            }
+            console.log("Making a new need");
+            let currentNeeds = game.users.current.getFlag("FoundryPLANT", "userNeedsList");
+            if (currentNeeds == null) {
+                console.log("User had no needs, making a new collection");
+                currentNeeds = [];
+            }
+            console.log(currentNeeds);
+            currentNeeds.push({ newNeed })
+            game.users.current.setFlag("FoundryPLANT", "userNeedsList", currentNeeds)
+        });
+
+        // If you edit your need, enable button if the value is not empty
+        html.on("input", "#fplant-needlist-text", () => {
+            let needtext = $("#fplant-needlist-text");
+            console.log(needtext);
+            console.log(needtext[0].value);
+            if (needtext && needtext[0].value) {
+                console.log("Text changed to:");
+                console.log(needtext[0].value);
+                $("#fplant-needlist-req-btn").prop("disabled", false);
+            } else {
+                console.log("Text is empty?")
+                console.log(needtext[0].value);
+                $("#fplant-needlist-req-btn").prop("disabled", true);
+            }
+        });
     }
 }
