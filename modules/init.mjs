@@ -10,27 +10,18 @@ Hooks.on("init", () => {
     ModuleSettings.register()
 
     // TODO - install a real log system
-    console.log("FoundryPLANT | Init()");
     Utils.preloadTemplates();
 });
 
 Hooks.on("ready", () => {
-    console.log("FoundryPLANT | Ready()");
 });
 
 Hooks.on("setup", () => {
-    console.log("FoundryPLANT | Setup()");
-
     window.Needs = NeedsApi
     window.NeedsList = new NeedsListClass();
-    console.log("FoundryPLANT | New NeedsList created, it's:");
-    console.log(NeedsList);
-    console.log(NeedsList.render);
-    console.log(NeedsList.needs)
 });
 
 Hooks.on("renderChatLog", (app, html, data) => {
-    console.log("FoundryPLANT | onRenderChat()");
     // TODO - different prompts for DM and player?
     const button = $(`<button id="fplant-chatneed-btn">${game.i18n.localize("FoundryPLANT.ChatNeedButton")}</button>`);
     let chatlog = html.find("#chat-log");

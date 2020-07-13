@@ -60,24 +60,18 @@ export default class NeedsList extends Application {
         html.on("click", "#fplant-needlist-req-btn", async () => {
             let needtext = $("#fplant-needlist-text");
             let newNeed = {
-                owner: game.user.id,
+                owner: game.user.name,
                 goal: needtext[0].value,
                 score: 1
             }
             let currentNeeds = game.user.getFlag("FoundryPLANT", "userNeedsList") || [];
             currentNeeds.push(newNeed)
-            // console.log("FoundryPLANT | Pushed newNeed");
             await game.user.unsetFlag("FoundryPLANT", "userNeedsList");
-            // console.log("FoundryPLANT | unset flag");
             await game.user.setFlag("FoundryPLANT", "userNeedsList", currentNeeds);
-            // console.log("FoundryPLANT | set Flag");
             // Rerender the list
-            // console.log("FoundryPLANT | ", NeedsList);
             this.render(true);
-            // console.log("FoundryPLANT | re-rendered page");
             // Clear out the text field
             needtext.val('');
-            // console.log("FoundryPLANT | emptied text");
         });
 
         // If you edit your need, enable button if the value is not empty
@@ -101,8 +95,17 @@ export default class NeedsList extends Application {
         });
 
         html.on("click", "#fplant-gm-clear-all-goals-btn", () => {
+            console.log("Clearing needs");
             this.clearNeeds();
-            Socket.refreshNeedsList();
+            // TODO - This.render seems to be completing before clearneeds is done clearing - they're
+            // still in the flag when it renders, so adding an artificial delay. 
+            // This is annoying.
+            setTimeout(() => {
+                console.log("Rerendering self");
+                this.render(true);
+                console.log("emitting");
+                Socket.refreshNeedsList();
+            }, 100);
         });
     }
 }
