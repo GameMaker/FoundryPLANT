@@ -18,6 +18,11 @@ $footer-size: 32px+2*$footer-padding;
     width: auto;
 }
 
+.fplant-button-disabled {
+    opacity: 20%;
+    disabled: true;
+}
+
 .fplant-button {
     margin: 5px;
 }

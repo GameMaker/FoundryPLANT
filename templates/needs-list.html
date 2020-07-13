@@ -6,9 +6,13 @@
         </div>
     </section>
     <div class="footer">
+        {{#if isGM}}
+        <hr>
+        <button id="fplant-gm-clear-all-goals-btn">{{localize "FoundryPLANT.GMClearAllGoalsButtonText"}}</button>
+        {{/if}}
         <hr>
         I'd like: <input type=" text" class="fplant-text-field" name="needText" id="fplant-needlist-text">
-        <button id="fplant-needlist-req-btn" class="fplant-button"
+        <button id="fplant-needlist-req-btn" class="fplant-button fplant-button-disabled"
             disabled="true">{{localize "FoundryPLANT.NeedRequestButton"}}</button>
     </div>
 </div>

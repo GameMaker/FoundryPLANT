@@ -23,7 +23,7 @@ Hooks.on("setup", () => {
 
     window.Needs = NeedsApi
     window.NeedsList = new NeedsListClass();
-    console.log("New NeedsList created, it's:");
+    console.log("FoundryPLANT | New NeedsList created, it's:");
     console.log(NeedsList);
     console.log(NeedsList.render);
     console.log(NeedsList.needs)

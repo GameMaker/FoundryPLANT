@@ -1,4 +1,5 @@
 import Need from "../entities/need.mjs";
+import Socket from "../utility/socket.mjs";
 
 export default class NeedsList extends Application {
     /**
@@ -19,6 +20,8 @@ export default class NeedsList extends Application {
         });
     }
 
+    // TODO - add toggles to turn off absentee folks
+
     /** 
      * Retrieves Data to be used in rendering template.
      *
@@ -36,6 +39,16 @@ export default class NeedsList extends Application {
     }
 
     /**
+     * for debug only - removes ALL need data.
+     * BUG - remove before shipping
+     */
+    clearNeeds() {
+        game.users.forEach(e => {
+            e.unsetFlag("FoundryPLANT", "userNeedsList");
+        });
+    }
+
+    /**
      * Defines all event listeners like click, drag, drop etc.
      *
      * @param html
@@ -44,40 +57,52 @@ export default class NeedsList extends Application {
         super.activateListeners(html);
 
         // Click to make a new request
-        html.on("click", "#fplant-needlist-req-btn", () => {
-            let needtext = $("#fplant-needlist-text")[0].value;
-            // TODO - Entities.setflag, then possibly re-jigger so the needs list
-            // is built off that flag. Hopefully that will re-sync?
+        html.on("click", "#fplant-needlist-req-btn", async () => {
+            let needtext = $("#fplant-needlist-text");
             let newNeed = {
-                owner: game.users.current.name,
-                goal: needtext,
+                owner: game.user.id,
+                goal: needtext[0].value,
                 score: 1
             }
-            console.log("Making a new need");
-            let currentNeeds = game.users.current.getFlag("FoundryPLANT", "userNeedsList");
-            if (currentNeeds == null) {
-                console.log("User had no needs, making a new collection");
-                currentNeeds = [];
-            }
-            console.log(currentNeeds);
-            currentNeeds.push({ newNeed })
-            game.users.current.setFlag("FoundryPLANT", "userNeedsList", currentNeeds)
+            let currentNeeds = game.user.getFlag("FoundryPLANT", "userNeedsList") || [];
+            currentNeeds.push(newNeed)
+            // console.log("FoundryPLANT | Pushed newNeed");
+            await game.user.unsetFlag("FoundryPLANT", "userNeedsList");
+            // console.log("FoundryPLANT | unset flag");
+            await game.user.setFlag("FoundryPLANT", "userNeedsList", currentNeeds);
+            // console.log("FoundryPLANT | set Flag");
+            // Rerender the list
+            // console.log("FoundryPLANT | ", NeedsList);
+            this.render(true);
+            // console.log("FoundryPLANT | re-rendered page");
+            // Clear out the text field
+            needtext.val('');
+            // console.log("FoundryPLANT | emptied text");
         });
 
         // If you edit your need, enable button if the value is not empty
-        html.on("input", "#fplant-needlist-text", () => {
+        html.on("input", "#fplant-needlist-text", (e) => {
             let needtext = $("#fplant-needlist-text");
-            console.log(needtext);
-            console.log(needtext[0].value);
+            let reqbtn = $("#fplant-needlist-req-btn")[0];
             if (needtext && needtext[0].value) {
-                console.log("Text changed to:");
-                console.log(needtext[0].value);
-                $("#fplant-needlist-req-btn").prop("disabled", false);
+                $(reqbtn).prop("disabled", false);
+                $(reqbtn).fadeTo(500, 1.0);
             } else {
-                console.log("Text is empty?")
-                console.log(needtext[0].value);
-                $("#fplant-needlist-req-btn").prop("disabled", true);
+                $(reqbtn).prop("disabled", true);
+                $(reqbtn).fadeTo(500, 0.2);
             }
+        });
+
+        // Handle the enter key in the text field
+        html.on("keyup", "#fplant-needlist-text", (e) => {
+            if (e.keyCode == 13) { // enter 
+                $("#fplant-needlist-req-btn").click();
+            }
+        });
+
+        html.on("click", "#fplant-gm-clear-all-goals-btn", () => {
+            this.clearNeeds();
+            Socket.refreshNeedsList();
         });
     }
 }

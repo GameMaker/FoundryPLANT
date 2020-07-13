@@ -9,6 +9,10 @@
   background: rgba(255, 255, 240, 0.8);
   width: auto; }
 
+.fplant-button-disabled {
+  opacity: 20%;
+  disabled: true; }
+
 .fplant-button {
   margin: 5px; }
 
