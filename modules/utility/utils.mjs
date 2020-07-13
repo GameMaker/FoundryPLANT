@@ -10,4 +10,12 @@ export default class Utils {
         templates = templates.map(t => `modules/FoundryPLANT/${t}`);
         loadTemplates(templates);
     }
+
+    static registerHandlebarsHelpers() {
+        console.log("Registering shoudlShowUserNeeds");
+        Handlebars.registerHelper('shouldShowUserNeeds', function (stringId, ...arrData) {
+            console.log("FoundryPLANT | shouldShowUserNeeds:", stringId)
+            return true;
+        });
+    }
 }

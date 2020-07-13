@@ -11,6 +11,7 @@ Hooks.on("init", () => {
 
     // TODO - install a real log system
     Utils.preloadTemplates();
+    Utils.registerHandlebarsHelpers();
 });
 
 Hooks.on("ready", () => {

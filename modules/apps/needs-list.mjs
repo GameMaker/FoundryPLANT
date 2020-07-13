@@ -60,7 +60,8 @@ export default class NeedsList extends Application {
         html.on("click", "#fplant-needlist-req-btn", async () => {
             let needtext = $("#fplant-needlist-text");
             let newNeed = {
-                owner: game.user.name,
+                ownerName: game.user.name,
+                ownerId: game.user.id,
                 goal: needtext[0].value,
                 score: 1
             }

@@ -24,12 +24,9 @@ export default class Need {
                 (Object.keys(userlist).length === 0 && userlist.constructor === Object)) {
                 return;
             }
-            for (let i = 0; i < userlist.length; i++) {
-                let need = userlist[i]
-                if (need && need.owner && need.goal && need.score) {
-                    entries.push(need);
-                }
-            }
+            userlist.forEach(need => {
+                entries.push(need);
+            })
         })
 
         const needs = {
