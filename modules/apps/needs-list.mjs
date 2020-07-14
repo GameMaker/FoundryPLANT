@@ -49,6 +49,30 @@ export default class NeedsList extends Application {
         });
     }
 
+    incrementAllScores() {
+        console.log("NeedsList.incrementAllScores");
+        game.users.forEach(async (user) => {
+            let userlist = user.getFlag("FoundryPLANT", "userNeedsList");
+            if (userlist != undefined && userlist != null) {
+                userlist.forEach(need => {
+                    console.log("Incrementing " + need.ownerName + " '" + need.goal + "'" + " from " + need.score);
+                    need.score++;
+                    console.log("Now it's " + need.score)
+                })
+                // TODO - semaphore on this?
+                await user.unsetFlag("FoundryPLANT", "userNeedsList");
+                await user.setFlag("FoundryPLANT", "userNeedsList", userlist);
+            }
+        })
+        if (this.rendered) {
+            // TODO - it's probably quite possible to lose data if you're making changes when 
+            // it's updating. Like, if I hit enter just as the incrementAlLScores is running,
+            // will that drop the need? I probably need a queue system and a proper controller.
+            // TODO - or can I call something smaller, like "just re-getData on the needs list template"?
+            this.render(true);
+        }
+    }
+
     /**
      * Defines all event listeners like click, drag, drop etc.
      *
@@ -79,6 +103,8 @@ export default class NeedsList extends Application {
 
         // If you edit your need, enable button if the value is not empty
         html.on("input", "#fplant-needlist-text", (e) => {
+            // TODO - also handle the timer better. If you're typing into this field, the 
+            // window refreshes and loses your text and focus.
             let needtext = $("#fplant-needlist-text");
             let reqbtn = $("#fplant-needlist-req-btn")[0];
             if (needtext && needtext[0].value) {
@@ -108,27 +134,31 @@ export default class NeedsList extends Application {
             }, 100);
         });
 
-        html.on("click", ".fplant-btn-need-satisfy", (e) => {
-            console.log("Need satisfied:", e);
-            console.log("Need ID: " + e.currentTarget.dataset.needId);
-
+        html.on("click", ".fplant-btn-need-satisfy", async (e) => {
+            let ownerId = e.currentTarget.dataset.ownerId;
+            let needId = e.currentTarget.dataset.needId;
+            let owner = game.users.get(ownerId);
+            let ownerNeeds = owner.getFlag("FoundryPLANT", "userNeedsList");
+            for (let i = 0; i < ownerNeeds.length; i++) {
+                if (ownerNeeds[i].id == needId) {
+                    ownerNeeds[i].score--;
+                    break;
+                }
+            }
+            await game.user.unsetFlag("FoundryPLANT", "userNeedsList");
+            await game.user.setFlag("FoundryPLANT", "userNeedsList", ownerNeeds);
             Socket.refreshNeedsList();
         })
 
         html.on("click", ".fplant-btn-need-delete", async (e) => {
-            console.log("Need deleted:", e);
             let ownerId = e.currentTarget.dataset.ownerId;
-            console.log("Owner ID: " + ownerId);
             let needId = e.currentTarget.dataset.needId;
-            console.log("Need ID: " + needId);
             let owner = game.users.get(ownerId);
-            console.log("User is: ", owner);
             let ownerNeeds = owner.getFlag("FoundryPLANT", "userNeedsList");
-            console.log("Current needs:", ownerNeeds);
             for (let i = 0; i < ownerNeeds.length; i++) {
                 if (ownerNeeds[i].id == needId) {
-                    console.log("Deleting at index " + i);
                     ownerNeeds.splice(i, 1);
+                    break;
                 }
             }
             await game.user.unsetFlag("FoundryPLANT", "userNeedsList");

@@ -5,6 +5,7 @@ import constants from "./constants.mjs";
 import ModuleSettings from "./utility/config.mjs";
 import Socket from "./utility/socket.mjs";
 import Need from "./entities/need.mjs";
+import Timer from "./utility/timer.mjs";
 
 Hooks.on("init", () => {
     ModuleSettings.register()
@@ -17,8 +18,16 @@ Hooks.on("init", () => {
 Hooks.on("ready", () => {
 });
 
+function incrementAllScores() {
+    console.log("DING!");
+    NeedsList.incrementAllScores();
+}
+
 Hooks.on("setup", () => {
     window.NeedsList = new NeedsListClass();
+    window.Timer = new Timer();
+    if (!game.paused)
+        Timer.start(incrementAllScores);
 });
 
 Hooks.on("renderChatLog", (app, html, data) => {
@@ -35,6 +44,17 @@ Hooks.on("renderChatLog", (app, html, data) => {
         NeedsList.render(true);
     });
 });
+
+// TODO - on game pause, stop timer
+// TODO - on game resume, start timer
+Hooks.on("pauseGame", () => {
+    console.log("Game pause triggered, game is " + (game.paused ? "paused" : "not paused"));
+    if (game.paused) {
+        Timer.stop();
+    } else {
+        Timer.start(incrementAllScores);
+    }
+})
 
 $(document).keypress(function (e) {
     // TODO - should probably be its own module, frankly.

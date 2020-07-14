@@ -32,7 +32,6 @@ export default class Need {
         const needs = {
             all: entries,
             highpri: entries.filter(e => e.score >= 7),
-            admins: entries.filter(e => e.owner === "Admin 5"),
             lowpri: entries.filter(e => e.score < 7)
         };
 
