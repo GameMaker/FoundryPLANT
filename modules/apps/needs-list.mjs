@@ -96,15 +96,12 @@ export default class NeedsList extends Application {
         });
 
         html.on("click", "#fplant-gm-clear-all-goals-btn", () => {
-            console.log("Clearing needs");
             this.clearNeeds();
             // TODO - This.render seems to be completing before clearneeds is done clearing - they're
             // still in the flag when it renders, so adding an artificial delay. 
             // This is annoying.
             setTimeout(() => {
-                console.log("Rerendering self");
                 this.render(true);
-                console.log("emitting");
                 Socket.refreshNeedsList();
             }, 100);
         });

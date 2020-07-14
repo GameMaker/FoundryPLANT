@@ -12,10 +12,14 @@ export default class Utils {
     }
 
     static registerHandlebarsHelpers() {
-        console.log("Registering shoudlShowUserNeeds");
-        Handlebars.registerHelper('shouldShowUserNeeds', function (stringId, ...arrData) {
-            console.log("FoundryPLANT | shouldShowUserNeeds:", stringId)
-            return true;
+        Handlebars.registerHelper('needsToShow', function (stringId, ...arrData) {
+            let needsListData = NeedsList.getData();
+            let needs = [];
+            needsListData.needs.all.forEach(element => {
+                if (needsListData.isGM || element.ownerId == game.user.id)
+                    needs.push(element);
+            });
+            return needs;
         });
     }
 }

@@ -12,11 +12,8 @@ export default class Socket {
 
     static listen() {
         game.socket.on("module.FoundryPLANT", data => {
-            console.log("FoundryPLANT | received socket module.FoundryPLANT");
             if (data.type === "needsListRefresh") {
-                console.log("FoundryPLANT | received socket module.FoundryPLANT.needsListRefresh");
                 if (NeedsList.rendered) {
-                    console.log("FoundryPLANT | List is rendered");
                     NeedsList.render(true);
                 }
                 return;

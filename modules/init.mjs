@@ -18,7 +18,6 @@ Hooks.on("ready", () => {
 });
 
 Hooks.on("setup", () => {
-    window.Needs = NeedsApi
     window.NeedsList = new NeedsListClass();
 });
 
