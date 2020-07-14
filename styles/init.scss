@@ -62,8 +62,9 @@ $footer-size: 32px+2*$footer-padding;
 
 #fplant-chatneed-btn {
     cursor: pointer;
+    line-height: 16px;
     max-width: 80%;
-    max-height: 40px;
+    max-height: 30px;
     margin: auto;
     background: $background-parchment-dark;
 }

@@ -1,5 +1,6 @@
 import Need from "../entities/need.mjs";
 import Socket from "../utility/socket.mjs";
+import Utils from "../utility/utils.mjs"
 
 export default class NeedsList extends Application {
     /**
@@ -60,6 +61,7 @@ export default class NeedsList extends Application {
         html.on("click", "#fplant-needlist-req-btn", async () => {
             let needtext = $("#fplant-needlist-text");
             let newNeed = {
+                id: Utils.makeGuid(),
                 ownerName: game.user.name,
                 ownerId: game.user.id,
                 goal: needtext[0].value,
@@ -105,5 +107,33 @@ export default class NeedsList extends Application {
                 Socket.refreshNeedsList();
             }, 100);
         });
+
+        html.on("click", ".fplant-btn-need-satisfy", (e) => {
+            console.log("Need satisfied:", e);
+            console.log("Need ID: " + e.currentTarget.dataset.needId);
+
+            Socket.refreshNeedsList();
+        })
+
+        html.on("click", ".fplant-btn-need-delete", async (e) => {
+            console.log("Need deleted:", e);
+            let ownerId = e.currentTarget.dataset.ownerId;
+            console.log("Owner ID: " + ownerId);
+            let needId = e.currentTarget.dataset.needId;
+            console.log("Need ID: " + needId);
+            let owner = game.users.get(ownerId);
+            console.log("User is: ", owner);
+            let ownerNeeds = owner.getFlag("FoundryPLANT", "userNeedsList");
+            console.log("Current needs:", ownerNeeds);
+            for (let i = 0; i < ownerNeeds.length; i++) {
+                if (ownerNeeds[i].id == needId) {
+                    console.log("Deleting at index " + i);
+                    ownerNeeds.splice(i, 1);
+                }
+            }
+            await game.user.unsetFlag("FoundryPLANT", "userNeedsList");
+            await game.user.setFlag("FoundryPLANT", "userNeedsList", ownerNeeds);
+            Socket.refreshNeedsList();
+        })
     }
 }
