@@ -5,17 +5,67 @@ $border: #333;
 $border-active: #833;
 $footer-padding: 4px;
 $footer-size: 32px+2*$footer-padding;
+
+// The Needs List containers
+
+.needs-list-div {
+    // overflow: scroll;
+}
+
+.needs-list-body {
+    height: calc(100% - 80px);
+}
+
+.footer {
+   position: absolute;
+   bottom: 20px;
+   width: 97.416%; // Don't ask.
+}
+
+// The needs table itself
+.fplant-table-header-row {
+    border-bottom: 3px groove grey;
+}
+
+.fplant-table-row {
+    border-bottom: 1px solid grey;
+}
+
+// Columns
+.fplant-needs-table-owner {
+    width: 20%;
+}
+
+.fplant-needs-table-goal {
+    width: 60%;
+}
+
+.fplant-needs-table-score {
+    width: 5%;
+    text-align: center;
+}
+
+.fplant-needs-table-utils {
+    width: 15%;
+}
+
+// Inputs
+#fplant-gm-clear-all-goals-btn {
+    width: calc(100% - 200px);
+    vertical-align: top;
+}
+
+#fplant-needlist-text {
+    background: $background-color;
+    width: calc(100% - 50px);
+}
+
 #fplant-chatneed-btn {
     cursor: pointer;
     max-width: 80%;
     max-height: 40px;
     margin: auto;
     background: $background-parchment-dark;
-}
-
-.fplant-text-field {
-    background: $background-color;
-    width: auto;
 }
 
 .fplant-button-disabled {
@@ -27,7 +77,11 @@ $footer-size: 32px+2*$footer-padding;
     margin: 5px;
 }
 
-.footer {
-    position: absolute;
-    bottom: 20px;
+.fplant-util-button {
+    width: 40%;
+}
+
+.danger-button{
+    background-color: #800;
+    color: #fff;
 }

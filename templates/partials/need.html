@@ -1,4 +1,15 @@
 {{#each needs}}
-<!-- TODO - turn to a table -->
-<div>{{ownerName}} needs {{goal}} ({{score}})</div>
+<tr class="fplant-table-row">
+    <td class="fplant-needs-table-owner">{{ownerName}}</td>
+    <td class="fplant-needs-table-goal">{{goal}}</td>
+    <td class="fplant-needs-table-score">{{score}}</td>
+    <td class="fplant-needs-table-utils">
+        <!-- TODO - down arrow icon-->
+        <!-- TODO - implement -->
+        <button class="fplant-util-button">-1</button>
+        <!-- TODO - red X -->
+        <!-- TODO - implement -->
+        <button class="fplant-util-button danger-button">X</button>
+    </td>
+</tr>
 {{/each}}
