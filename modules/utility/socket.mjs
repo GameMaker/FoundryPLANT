@@ -6,7 +6,6 @@ export default class Socket {
     static refreshNeedsList() {
         fplog("Socket.refreshNeedsList()");
         fplog("Emitting " + constants.socketDomain + ":" + constants.msgRefreshNeeds);
-        console.log("CLEmitting " + constants.socketDomain + ":" + constants.msgRefreshNeeds);
         game.socket.emit(constants.socketDomain, {
             type: constants.msgRefreshNeeds
         })

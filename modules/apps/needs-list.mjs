@@ -170,8 +170,8 @@ export default class NeedsList extends Application {
                     break;
                 }
             }
-            await game.user.unsetFlag(constants.moduleName, constants.needFlag);
-            await game.user.setFlag(constants.moduleName, constants.needFlag, ownerNeeds);
+            await owner.unsetFlag(constants.moduleName, constants.needFlag);
+            await owner.setFlag(constants.moduleName, constants.needFlag, ownerNeeds);
             setTimeout(Socket.refreshNeedsList, constants.tableRefreshDelay);
         })
 
@@ -179,12 +179,14 @@ export default class NeedsList extends Application {
          * Delete a need - it was a one-time need that's been met
          */
         html.on("click", ".fplant-btn-need-delete", async (e) => {
+            fplog("Current user ID " + game.user.id);
             let ownerId = e.currentTarget.dataset.ownerId;
+            fplog("deleted need owner ID " + ownerId);
             let needId = e.currentTarget.dataset.needId;
             let owner = game.users.get(ownerId);
+            fplog("owner is " + owner.name);
             let ownerNeeds = owner.getFlag(constants.moduleName, constants.needFlag);
-            fplog("Owner needs before" + ownerNeeds.length
-            );
+            fplog("Owner needs before" + ownerNeeds.length);
             for (let i = 0; i < ownerNeeds.length; i++) {
                 if (ownerNeeds[i].id == needId) {
                     ownerNeeds.splice(i, 1);
@@ -192,8 +194,8 @@ export default class NeedsList extends Application {
                 }
             }
             fplog("Owner needs after" + ownerNeeds.length);
-            await game.user.unsetFlag(constants.moduleName, constants.needFlag);
-            await game.user.setFlag(constants.moduleName, constants.needFlag, ownerNeeds);
+            await owner.unsetFlag(constants.moduleName, constants.needFlag);
+            await owner.setFlag(constants.moduleName, constants.needFlag, ownerNeeds);
             setTimeout(Socket.refreshNeedsList, constants.tableRefreshDelay);
         })
     }
