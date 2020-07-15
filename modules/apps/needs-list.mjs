@@ -22,8 +22,6 @@ export default class NeedsList extends Application {
         });
     }
 
-    // TODO - add toggles to turn off absentee folks
-
     /** 
      * Retrieves Data to be used in rendering template.
      *
@@ -61,7 +59,10 @@ export default class NeedsList extends Application {
             let userlist = user.getFlag(constants.moduleName, constants.needFlag);
             if (userlist != undefined && userlist != null) {
                 userlist.forEach(need => {
-                    need.score++;
+                    need.score = parseFloat(need.score);
+                    // For some reason, if I put the 0.01 inside parseFloat(), it doesn't get added.
+                    need.score = need.score + 0.01;
+                    need.score = need.score.toFixed(2);
                 })
                 // BUG - semaphore on this? it's probably quite possible to lose data if you're making changes when 
                 // it's updating. Like, if I hit enter just as the incrementAlLScores is running,
@@ -104,7 +105,7 @@ export default class NeedsList extends Application {
                 ownerName: game.user.name,
                 ownerId: game.user.id,
                 goal: needtext[0].value,
-                score: 1
+                score: parseFloat(3.05)
             }
             let currentNeeds = game.user.getFlag(constants.moduleName, constants.needFlag) || [];
             currentNeeds.push(newNeed)
@@ -166,7 +167,7 @@ export default class NeedsList extends Application {
             let ownerNeeds = owner.getFlag(constants.moduleName, constants.needFlag);
             for (let i = 0; i < ownerNeeds.length; i++) {
                 if (ownerNeeds[i].id == needId) {
-                    ownerNeeds[i].score--;
+                    ownerNeeds[i].score = parseFloat(Math.max(0, ownerNeeds[i].score - 1)).toFixed(2);
                     break;
                 }
             }
@@ -179,21 +180,21 @@ export default class NeedsList extends Application {
          * Delete a need - it was a one-time need that's been met
          */
         html.on("click", ".fplant-btn-need-delete", async (e) => {
-            fplog("Current user ID " + game.user.id);
+            // fplog("Current user ID " + game.user.id);
             let ownerId = e.currentTarget.dataset.ownerId;
-            fplog("deleted need owner ID " + ownerId);
+            // fplog("deleted need owner ID " + ownerId);
             let needId = e.currentTarget.dataset.needId;
             let owner = game.users.get(ownerId);
-            fplog("owner is " + owner.name);
+            // fplog("owner is " + owner.name);
             let ownerNeeds = owner.getFlag(constants.moduleName, constants.needFlag);
-            fplog("Owner needs before" + ownerNeeds.length);
+            // fplog("Owner needs before" + ownerNeeds.length);
             for (let i = 0; i < ownerNeeds.length; i++) {
                 if (ownerNeeds[i].id == needId) {
                     ownerNeeds.splice(i, 1);
                     break;
                 }
             }
-            fplog("Owner needs after" + ownerNeeds.length);
+            // fplog("Owner needs after" + ownerNeeds.length);
             await owner.unsetFlag(constants.moduleName, constants.needFlag);
             await owner.setFlag(constants.moduleName, constants.needFlag, ownerNeeds);
             setTimeout(Socket.refreshNeedsList, constants.tableRefreshDelay);

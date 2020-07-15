@@ -28,6 +28,15 @@ export default class Need {
             })
         })
 
+        // Descending by score
+        entries.sort((a, b) => {
+            if (a.score < b.score)
+                return 1;
+            if (a.score > b.score)
+                return -1;
+            return 0;
+        });
+
         const needs = {
             all: entries,
             highpri: entries.filter(e => e.score >= 7),

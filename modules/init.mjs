@@ -10,20 +10,17 @@ import Timer from "./utility/timer.mjs";
 Hooks.on("init", () => {
     ModuleSettings.register()
 
-    // TODO - install a real log system
     Utils.preloadTemplates();
     Utils.registerHandlebarsHelpers();
 });
 
 function incrementAllScores() {
-    fplog("Init.IncrementAllScores");
+    // fplog("Init.IncrementAllScores");
     NeedsList.incrementAllScores();
 }
 
-// BUG - sort the list by score
-// BUG - show the score as decimal (roughly in hours)
+// BUG - GM can click on any score and edit it directly.
 // BUG - add an 'active' checkbox for each - timer does not increase if not active
-// BUG - wow, does it not work with multiple players
 Hooks.on("setup", () => {
     window.NeedsList = new NeedsListClass();
 });
@@ -48,16 +45,15 @@ Hooks.on("ready", () => {
     window.Timer = new Timer();
     if (!game.paused)
         Timer.start(incrementAllScores);
-    fplog("Listening on sockets");
+    // fplog("Listening on sockets");
     Socket.listen();
 });
 
 Hooks.on("renderChatLog", (app, html, data) => {
-    // TODO - different prompts for DM and player?
     const button = $(`<button id="fplant-chatneed-btn">${game.i18n.localize("FoundryPLANT.ChatNeedButton")}</button>`);
     let chatlog = html.find("#chat-log");
     if (chatlog.length === 0) {
-        fplog(constants.moduleName + "onRenderChat: ERROR Could not find #chat-log");
+        fplog("onRenderChat: ERROR Could not find #chat-log");
         return;
     }
     chatlog.after(button);
@@ -68,7 +64,7 @@ Hooks.on("renderChatLog", (app, html, data) => {
 });
 
 Hooks.on("pauseGame", () => {
-    fplog("Game pause triggered, game is " + (game.paused ? "paused" : "not paused"));
+    // fplog("Game pause triggered, game is " + (game.paused ? "paused" : "not paused"));
     if (game.paused) {
         Timer.stop();
     } else {
