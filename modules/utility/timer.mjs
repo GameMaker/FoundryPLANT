@@ -1,23 +1,26 @@
 export default class Timer {
     static intervalID = null;
-    static intervalTimeInSeconds = 3;
+    static intervalTimeInSeconds = 5;
+    // BUG - make this a config option
+    // BUG - Localize the UI
 
+    // BUG - if you pause the game, it will restart the timer from 0. When paused, it should pause, and resume with the remaining
+    // amount of time.
     static start(callback) {
-        console.log("Starting timer");
-        if (Timer.intervalID == null) {
-            Timer.intervalID = setInterval(callback, Timer.intervalTimeInSeconds * 1000); // TODO - add ability to change this
+        if (game.user.isGM) {
+            // TODO - If there's more than one GM, time will go twice as fast.
+            // Maybe look and see who else is logged in when you start? Still need a way to pass it off when the "first" GM leaves.
+            fplog("I'm GM, trying to start a timer");
+            Timer.intervalID = setInterval(callback, Timer.intervalTimeInSeconds * 1000);
         } else {
-            console.log("Timer's already running.");
+            fplog("Not a GM - no timer");
         }
     }
 
     static stop() {
-        if (Timer.intervalID != null) {
-            console.log("Stopping timer");
+        if (game.user.isGM && Timer.intervalID != null) {
             clearInterval(Timer.intervalID);
             Timer.intervalID = null;
-        } else {
-            console.log("No timer to stop");
         }
     }
 }

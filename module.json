@@ -11,11 +11,16 @@
         "modules/init.mjs",
         "modules/apps/needs-list.mjs"
     ],
-    "styles": ["styles/init.css"],
-    "languages": [{
-        "lang": "en",
-        "name": "English",
-        "path": "lang/en.json"
-    }],
-    "url": "https://github.com/GameMaker/FoundryPLANT"
+    "styles": [
+        "styles/init.css"
+    ],
+    "languages": [
+        {
+            "lang": "en",
+            "name": "English",
+            "path": "lang/en.json"
+        }
+    ],
+    "url": "https://github.com/GameMaker/FoundryPLANT",
+    "socket": true
 }

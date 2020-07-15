@@ -4,7 +4,8 @@ export default class Utils {
        */
     static preloadTemplates() {
         let templates = [
-            "templates/partials/need.html",
+            "templates/partials/need-row.html",
+            "templates/partials/needs-table.html",
         ];
 
         templates = templates.map(t => `modules/FoundryPLANT/${t}`);

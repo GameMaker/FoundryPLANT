@@ -1,6 +1,7 @@
 import Need from "../entities/need.mjs";
 import Socket from "../utility/socket.mjs";
-import Utils from "../utility/utils.mjs"
+import Utils from "../utility/utils.mjs";
+import constants from "../constants.mjs";
 
 export default class NeedsList extends Application {
     /**
@@ -10,8 +11,8 @@ export default class NeedsList extends Application {
      */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            id: "FoundryPLANT",
-            classes: ["foundryPLANT"],
+            id: constants.moduleName,
+            classes: [constants.moduleName],
             template: "modules/FoundryPLANT/templates/needs-list.html",
             width: 700,
             height: 400,
@@ -30,12 +31,17 @@ export default class NeedsList extends Application {
      * @returns {Promise<Object>}
      */
     getData(options = {}) {
+        // fplog("Needslist.getdata");
         let available = true;
-        return mergeObject(super.getData(), {
+        let sd = super.getData();
+        // fplog("got superdata");
+        let nds = Need.getNeeds();
+        // fplog("got needs");
+        return mergeObject(sd, {
             options: options,
             isGM: game.user.isGM,
             availableTab: available,
-            needs: Need.getNeeds()
+            needs: nds
         });
     }
 
@@ -45,32 +51,39 @@ export default class NeedsList extends Application {
      */
     clearNeeds() {
         game.users.forEach(e => {
-            e.unsetFlag("FoundryPLANT", "userNeedsList");
+            e.unsetFlag(constants.moduleName, constants.needFlag);
         });
     }
 
     incrementAllScores() {
-        console.log("NeedsList.incrementAllScores");
+        // fplog("NeedsList.incrementAllScores");
         game.users.forEach(async (user) => {
-            let userlist = user.getFlag("FoundryPLANT", "userNeedsList");
+            let userlist = user.getFlag(constants.moduleName, constants.needFlag);
             if (userlist != undefined && userlist != null) {
                 userlist.forEach(need => {
-                    console.log("Incrementing " + need.ownerName + " '" + need.goal + "'" + " from " + need.score);
                     need.score++;
-                    console.log("Now it's " + need.score)
                 })
-                // TODO - semaphore on this?
-                await user.unsetFlag("FoundryPLANT", "userNeedsList");
-                await user.setFlag("FoundryPLANT", "userNeedsList", userlist);
+                // BUG - semaphore on this? it's probably quite possible to lose data if you're making changes when 
+                // it's updating. Like, if I hit enter just as the incrementAlLScores is running,
+                // will that drop the need? I probably need a queue system and a proper controller.
+                await user.unsetFlag(constants.moduleName, constants.needFlag);
+                await user.setFlag(constants.moduleName, constants.needFlag, userlist);
             }
         })
-        if (this.rendered) {
-            // TODO - it's probably quite possible to lose data if you're making changes when 
-            // it's updating. Like, if I hit enter just as the incrementAlLScores is running,
-            // will that drop the need? I probably need a queue system and a proper controller.
-            // TODO - or can I call something smaller, like "just re-getData on the needs list template"?
-            this.render(true);
-        }
+        setTimeout(Socket.refreshNeedsList, constants.tableRefreshDelay);
+    }
+
+    async updateNeedsTable() {
+        // fplog("UpdatingNeedsTable()");
+        let data = this.getData();
+        // fplog("Got data", data);
+        renderTemplate("modules/FoundryPLANT/templates/partials/needs-table.html", data).then((generatedHTML) => {
+            // fplog("compiled table", generatedHTML);
+
+            var resultContainer = document.getElementById("needs-list-table");
+            resultContainer.innerHTML = generatedHTML
+            // fplog("assigned table");
+        });
     }
 
     /**
@@ -81,7 +94,9 @@ export default class NeedsList extends Application {
     activateListeners(html) {
         super.activateListeners(html);
 
-        // Click to make a new request
+        /**
+         * Submit a new request == create a new need
+         */
         html.on("click", "#fplant-needlist-req-btn", async () => {
             let needtext = $("#fplant-needlist-text");
             let newNeed = {
@@ -91,20 +106,22 @@ export default class NeedsList extends Application {
                 goal: needtext[0].value,
                 score: 1
             }
-            let currentNeeds = game.user.getFlag("FoundryPLANT", "userNeedsList") || [];
+            let currentNeeds = game.user.getFlag(constants.moduleName, constants.needFlag) || [];
             currentNeeds.push(newNeed)
-            await game.user.unsetFlag("FoundryPLANT", "userNeedsList");
-            await game.user.setFlag("FoundryPLANT", "userNeedsList", currentNeeds);
+            await game.user.unsetFlag(constants.moduleName, constants.needFlag);
+            await game.user.setFlag(constants.moduleName, constants.needFlag, currentNeeds);
             // Rerender the list
-            this.render(true);
+            setTimeout(Socket.refreshNeedsList, constants.tableRefreshDelay);
             // Clear out the text field
             needtext.val('');
+            // And give it focus
+            needtext.focus();
         });
 
-        // If you edit your need, enable button if the value is not empty
+        /**
+         * If you edit your need, enable button if the value is not empty
+         */
         html.on("input", "#fplant-needlist-text", (e) => {
-            // TODO - also handle the timer better. If you're typing into this field, the 
-            // window refreshes and loses your text and focus.
             let needtext = $("#fplant-needlist-text");
             let reqbtn = $("#fplant-needlist-req-btn")[0];
             if (needtext && needtext[0].value) {
@@ -116,13 +133,18 @@ export default class NeedsList extends Application {
             }
         });
 
-        // Handle the enter key in the text field
+        /**
+         *  Handle the enter key in the text field
+         */
         html.on("keyup", "#fplant-needlist-text", (e) => {
             if (e.keyCode == 13) { // enter 
                 $("#fplant-needlist-req-btn").click();
             }
         });
 
+        /**
+         * DELETE ALL NEEDS!
+         */
         html.on("click", "#fplant-gm-clear-all-goals-btn", () => {
             this.clearNeeds();
             // TODO - This.render seems to be completing before clearneeds is done clearing - they're
@@ -130,40 +152,49 @@ export default class NeedsList extends Application {
             // This is annoying.
             setTimeout(() => {
                 this.render(true);
-                Socket.refreshNeedsList();
+                setTimeout(Socket.refreshNeedsList, constants.tableRefreshDelay);
             }, 100);
         });
 
+        /**
+         * Satisfy a need - subtract one from its score
+         */
         html.on("click", ".fplant-btn-need-satisfy", async (e) => {
             let ownerId = e.currentTarget.dataset.ownerId;
             let needId = e.currentTarget.dataset.needId;
             let owner = game.users.get(ownerId);
-            let ownerNeeds = owner.getFlag("FoundryPLANT", "userNeedsList");
+            let ownerNeeds = owner.getFlag(constants.moduleName, constants.needFlag);
             for (let i = 0; i < ownerNeeds.length; i++) {
                 if (ownerNeeds[i].id == needId) {
                     ownerNeeds[i].score--;
                     break;
                 }
             }
-            await game.user.unsetFlag("FoundryPLANT", "userNeedsList");
-            await game.user.setFlag("FoundryPLANT", "userNeedsList", ownerNeeds);
-            Socket.refreshNeedsList();
+            await game.user.unsetFlag(constants.moduleName, constants.needFlag);
+            await game.user.setFlag(constants.moduleName, constants.needFlag, ownerNeeds);
+            setTimeout(Socket.refreshNeedsList, constants.tableRefreshDelay);
         })
 
+        /**
+         * Delete a need - it was a one-time need that's been met
+         */
         html.on("click", ".fplant-btn-need-delete", async (e) => {
             let ownerId = e.currentTarget.dataset.ownerId;
             let needId = e.currentTarget.dataset.needId;
             let owner = game.users.get(ownerId);
-            let ownerNeeds = owner.getFlag("FoundryPLANT", "userNeedsList");
+            let ownerNeeds = owner.getFlag(constants.moduleName, constants.needFlag);
+            fplog("Owner needs before" + ownerNeeds.length
+            );
             for (let i = 0; i < ownerNeeds.length; i++) {
                 if (ownerNeeds[i].id == needId) {
                     ownerNeeds.splice(i, 1);
                     break;
                 }
             }
-            await game.user.unsetFlag("FoundryPLANT", "userNeedsList");
-            await game.user.setFlag("FoundryPLANT", "userNeedsList", ownerNeeds);
-            Socket.refreshNeedsList();
+            fplog("Owner needs after" + ownerNeeds.length);
+            await game.user.unsetFlag(constants.moduleName, constants.needFlag);
+            await game.user.setFlag(constants.moduleName, constants.needFlag, ownerNeeds);
+            setTimeout(Socket.refreshNeedsList, constants.tableRefreshDelay);
         })
     }
 }

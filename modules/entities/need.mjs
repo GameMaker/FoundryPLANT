@@ -1,4 +1,4 @@
-import Socket from "../utility/socket.mjs";
+import constants from "../constants.mjs";
 
 export default class Need {
     constructor(data = {}, entry = null) {
@@ -17,8 +17,7 @@ export default class Need {
         let entries = [];
 
         game.users.forEach(user => {
-            // TODO - Constants - enough magic strings
-            let userlist = user.getFlag("FoundryPLANT", "userNeedsList");
+            let userlist = user.getFlag(constants.moduleName, constants.needFlag);
             if (userlist == undefined ||
                 userlist == null ||
                 (Object.keys(userlist).length === 0 && userlist.constructor === Object)) {
@@ -34,8 +33,6 @@ export default class Need {
             highpri: entries.filter(e => e.score >= 7),
             lowpri: entries.filter(e => e.score < 7)
         };
-
-        Socket.refreshNeedsList();
 
         return needs;
     }

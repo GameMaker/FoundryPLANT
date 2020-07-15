@@ -15,19 +15,41 @@ Hooks.on("init", () => {
     Utils.registerHandlebarsHelpers();
 });
 
-Hooks.on("ready", () => {
-});
-
 function incrementAllScores() {
-    console.log("DING!");
+    fplog("Init.IncrementAllScores");
     NeedsList.incrementAllScores();
 }
 
+// BUG - sort the list by score
+// BUG - show the score as decimal (roughly in hours)
+// BUG - add an 'active' checkbox for each - timer does not increase if not active
+// BUG - wow, does it not work with multiple players
 Hooks.on("setup", () => {
     window.NeedsList = new NeedsListClass();
+});
+
+Hooks.on("ready", () => {
+    // Custom log function:
+    window.trace = function stackTrace() {
+        var err = new Error();
+        return err.stack;
+    }
+    window.fplog = function (x) {
+        if (!dev_mode) return;
+        var line = trace();
+        var lines = line.split("\n");
+        console.log(constants.moduleName + ": " + x + " " + lines[2].substring(lines[2].indexOf("("), lines[2].lastIndexOf(")") + 1))
+    }
+
+    // BUG - add to config
+    window.dev_mode = true;
+
+    // BUG - Only GMs should have timers, and only one per game at a time.
     window.Timer = new Timer();
     if (!game.paused)
         Timer.start(incrementAllScores);
+    fplog("Listening on sockets");
+    Socket.listen();
 });
 
 Hooks.on("renderChatLog", (app, html, data) => {
@@ -35,7 +57,7 @@ Hooks.on("renderChatLog", (app, html, data) => {
     const button = $(`<button id="fplant-chatneed-btn">${game.i18n.localize("FoundryPLANT.ChatNeedButton")}</button>`);
     let chatlog = html.find("#chat-log");
     if (chatlog.length === 0) {
-        console.log("FoundryPLANT | onRenderChat: ERROR Could not find #chat-log");
+        fplog(constants.moduleName + "onRenderChat: ERROR Could not find #chat-log");
         return;
     }
     chatlog.after(button);
@@ -45,10 +67,8 @@ Hooks.on("renderChatLog", (app, html, data) => {
     });
 });
 
-// TODO - on game pause, stop timer
-// TODO - on game resume, start timer
 Hooks.on("pauseGame", () => {
-    console.log("Game pause triggered, game is " + (game.paused ? "paused" : "not paused"));
+    fplog("Game pause triggered, game is " + (game.paused ? "paused" : "not paused"));
     if (game.paused) {
         Timer.stop();
     } else {

@@ -5,16 +5,9 @@
                 id="fplant-gm-clear-all-goals-btn">{{localize "FoundryPLANT.GMClearAllGoalsButtonText"}}</button>
             {{/if}}
         </h1>
-        <div class="needs-list-div">
-            <table>
-                <tr class="fplant-table-header-row">
-                    <th class="fplant-needs-table-owner">Owner</th>
-                    <th class="fplant-needs-table-goal">Goal</th>
-                    <!-- TODO - only if GM -->
-                    <th class="fplant-needs-table-score">Score</th>
-                    <th class="fplant-needs-table-utils"></th>
-                </tr>
-                {{> "modules/FoundryPLANT/templates/partials/need.html" needs=(needsToShow)}}
+        <div id="needs-list-div" class="needs-list-div">
+            <table id="needs-list-table">
+                {{> "modules/FoundryPLANT/templates/partials/needs-table.html"}}
             </table>
         </div>
     </section>
