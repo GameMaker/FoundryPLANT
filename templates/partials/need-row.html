@@ -3,13 +3,14 @@
     <td class="fplant-needs-table-owner">{{ownerName}}</td>
     <td class="fplant-needs-table-goal">{{goal}}</td>
     <td class="fplant-needs-table-score">{{score}}</td>
-    <td class="fplant-needs-table-utils">
+    <td class="fplant-needs-table-utils fplant-needs-table-alignright">
         <!-- TODO - down arrow icon-->
-        <!-- BUG - only if GM -->
-        <button class="fplant-util-button fplant-btn-need-satisfy" data-owner-id="{{ownerId}}"
-            data-need-id="{{id}}">-1</button>
+        {{#if (isGM)}}
+        <button class="fplant-util-button fplant-btn-need-satisfy" data-owner-id="{{ownerId}}" data-need-id="{{id}}">
+        </button>
+        {{/if}}
         <button class="fplant-util-button danger-button fplant-btn-need-delete" data-owner-id="{{ownerId}}"
-            data-need-id="{{id}}">X</button>
+            data-need-id="{{id}}"> </button>
     </td>
 </tr>
 {{/each}}

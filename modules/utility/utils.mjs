@@ -22,6 +22,10 @@ export default class Utils {
             });
             return needs;
         });
+
+        Handlebars.registerHelper('isGM', () => {
+            return game.user.isGM;
+        });
     }
 
     static makeGuid() {

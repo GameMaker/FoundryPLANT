@@ -25,6 +25,24 @@
 .fplant-needs-table-utils {
   width: 15%; }
 
+.fplant-needs-table-alignright {
+  text-align: right; }
+
+.fplant-util-button {
+  width: 40%;
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 2em;
+  height: 2em; }
+
+.fplant-btn-need-satisfy {
+  background-image: url("/modules/FoundryPLANT/images/check.png");
+  background-color: rgba(32, 150, 32, 0.5); }
+
+.fplant-btn-need-delete {
+  background-image: url("/modules/FoundryPLANT/images/x.png"); }
+
 #fplant-gm-clear-all-goals-btn {
   width: calc(100% - 200px);
   vertical-align: top; }
@@ -47,9 +65,6 @@
 
 .fplant-button {
   margin: 5px; }
-
-.fplant-util-button {
-  width: 40%; }
 
 .danger-button {
   background-color: #800;
