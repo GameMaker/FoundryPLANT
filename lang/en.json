@@ -1,7 +1,15 @@
 {
-    "FoundryPLANT.Title": "Foundry PLANT",
-    "FoundryPLANT.ChatNeedButton": "I need something...",
-    "FoundryPLANT.NeedsList.Title": "FoundryPLANT: Needs List",
-    "FoundryPLANT.NeedRequestButton": "Please",
-    "FoundryPLANT.GMClearAllGoalsButtonText": "DELETE ALL NEEDS!"
+    "FoundryPLANT": {
+        "Title": "Foundry PLANT",
+        "ChatNeedButton": "I need something...",
+        "NeedsList.Title": "FoundryPLANT: Needs List",
+        "NeedRequestButton": "Please",
+        "GMClearAllGoalsButtonText": "DELETE ALL NEEDS!",
+        "Settings": {
+            "debugMode": {
+                "Enable": "Debug Mode",
+                "EnableHint": "Enables browser console logging for the FoundryPLANT."
+            }
+        }
+    }
 }

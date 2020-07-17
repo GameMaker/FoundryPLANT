@@ -1,6 +1,6 @@
 export default class Timer {
     static intervalID = null;
-    static intervalTimeInSeconds = 3;
+    static intervalTimeInSeconds = 36; // 36 seconds = 1/100th of 1 hour
     // BUG - make this a config option
     // BUG - Localize the UI
 

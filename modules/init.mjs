@@ -10,6 +10,8 @@ import Timer from "./utility/timer.mjs";
 Hooks.on("init", () => {
     ModuleSettings.register()
 
+    // CONFIG.debug.hooks = true;
+
     Utils.preloadTemplates();
     Utils.registerHandlebarsHelpers();
 });
@@ -25,6 +27,10 @@ Hooks.on("setup", () => {
     window.NeedsList = new NeedsListClass();
 });
 
+Hooks.on("renderNeedsList", () => {
+    // fplog("Needs List got rendered");
+});
+
 Hooks.on("ready", () => {
     // Custom log function:
     window.trace = function stackTrace() {
@@ -32,17 +38,18 @@ Hooks.on("ready", () => {
         return err.stack;
     }
     window.fplog = function (x) {
-        if (!dev_mode) return;
+        if (!game.settings.get(constants.moduleName, constants.settings.debugMode)) return;
         var line = trace();
         var lines = line.split("\n");
         console.log(constants.moduleName + ": " + x + " " + lines[2].substring(lines[2].indexOf("("), lines[2].lastIndexOf(")") + 1))
     }
 
-    // BUG - add to config
-    window.dev_mode = true;
 
-    // BUG - Only GMs should have timers, and only one per game at a time.
-    window.Timer = new Timer();
+    // TODO - If there are two GMs, scores will go up twice as fast
+    if (game.user.isGM) {
+        window.Timer = new Timer();
+    }
+
     if (!game.paused)
         Timer.start(incrementAllScores);
     // fplog("Listening on sockets");
