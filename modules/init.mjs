@@ -16,15 +16,11 @@ Hooks.on("init", () => {
     Utils.registerHandlebarsHelpers();
 });
 
-function incrementAllScores() {
-    // fplog("Init.IncrementAllScores");
-    NeedsList.incrementAllScores();
-}
-
 // BUG - GM can click on any score and edit it directly.
 // BUG - add an 'active' checkbox for each - timer does not increase if not active
 Hooks.on("setup", () => {
     window.NeedsList = new NeedsListClass();
+    window.NeedsList.unlockFlag();
 });
 
 Hooks.on("renderNeedsList", () => {
@@ -51,7 +47,7 @@ Hooks.on("ready", () => {
     }
 
     if (!game.paused)
-        Timer.start(incrementAllScores);
+        window.Timer.start(window.NeedsList.incrementAllScores);
     // fplog("Listening on sockets");
     Socket.listen();
 });
@@ -73,9 +69,9 @@ Hooks.on("renderChatLog", (app, html, data) => {
 Hooks.on("pauseGame", () => {
     // fplog("Game pause triggered, game is " + (game.paused ? "paused" : "not paused"));
     if (game.paused) {
-        Timer.stop();
+        window.Timer.stop();
     } else {
-        Timer.start(incrementAllScores);
+        window.Timer.start(NeedsList.incrementAllScores);
     }
 })
 

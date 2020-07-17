@@ -9,6 +9,10 @@
             "debugMode": {
                 "Enable": "Debug Mode",
                 "EnableHint": "Enables browser console logging for the FoundryPLANT."
+            },
+            "incrementTime": {
+                "Enable": "Need Increment Time (seconds)",
+                "EnableHint": "Defines how many seconds between each increment of need scores (by 0.01)."
             }
         }
     }

@@ -53,25 +53,49 @@ export default class NeedsList extends Application {
         });
     }
 
+    lockFlag() {
+        // fplog("Locking flags");
+        window.FoundryPLANTlockSemaphore = true;
+    }
+
+    unlockFlag() {
+        // fplog("Unlocking flags");
+        window.FoundryPLANTlockSemaphore = false;
+    }
+
+    checkFlag() {
+        return window.FoundryPLANTlockSemaphore;
+    }
+
     incrementAllScores() {
-        // fplog("NeedsList.incrementAllScores");
-        game.users.forEach(async (user) => {
-            let userlist = user.getFlag(constants.moduleName, constants.needFlag);
-            if (userlist != undefined && userlist != null) {
-                userlist.forEach(need => {
-                    need.score = parseFloat(need.score);
-                    // For some reason, if I put the 0.01 inside parseFloat(), it doesn't get added.
-                    need.score = need.score + 0.01;
-                    need.score = need.score.toFixed(2);
-                })
-                // BUG - semaphore on this? it's probably quite possible to lose data if you're making changes when 
-                // it's updating. Like, if I hit enter just as the incrementAlLScores is running,
-                // will that drop the need? I probably need a queue system and a proper controller.
-                await user.unsetFlag(constants.moduleName, constants.needFlag);
-                await user.setFlag(constants.moduleName, constants.needFlag, userlist);
-            }
-        })
-        setTimeout(Socket.refreshNeedsList, constants.tableRefreshDelay);
+        if (window.FoundryPLANTlockSemaphore) {
+            let delay = 100 + (Math.random() * 400);
+            console.log(constants.moduleName + ": Flag semaphore was locked - avoiding collision and waiting " + delay + "ms to increment scores");
+            setTimeout(this.incrementAllScores, delay);
+        } else {
+            fplog("Incrementing all scores");
+            window.NeedsList.lockFlag();
+            // fplog("NeedsList.incrementAllScores");
+            game.users.forEach(async (user) => {
+                let userlist = user.getFlag(constants.moduleName, constants.needFlag);
+                if (userlist != undefined && userlist != null) {
+                    userlist.forEach(need => {
+                        need.score = parseFloat(need.score);
+                        // For some reason, if I put the 0.01 inside parseFloat(), it doesn't get added.
+                        need.score = need.score + 0.01;
+                        need.score = need.score.toFixed(2);
+                    })
+                    // BUG - semaphore on this? it's probably quite possible to lose data if you're making changes when 
+                    // it's updating. Like, if I hit enter just as the incrementAlLScores is running,
+                    // will that drop the need? I probably need a queue system and a proper controller.
+
+                    await user.unsetFlag(constants.moduleName, constants.needFlag);
+                    await user.setFlag(constants.moduleName, constants.needFlag, userlist);
+                }
+            })
+            window.NeedsList.unlockFlag();
+            setTimeout(Socket.refreshNeedsList, constants.tableRefreshDelay);
+        }
     }
 
     async updateNeedsTable() {
@@ -87,6 +111,34 @@ export default class NeedsList extends Application {
         });
     }
 
+    async addNeed() {
+        if (window.FoundryPLANTlockSemaphore) {
+            let delay = 100 + (Math.random() * 400);
+            console.log(constants.moduleName + ": Flag semaphore was locked - avoiding collision and waiting " + delay + "ms to add a new need");
+            setTimeout(this.incrementAllScores, delay);
+        } else {
+            let needtext = $("#fplant-needlist-text");
+            let newNeed = {
+                id: Utils.makeGuid(),
+                ownerName: game.user.name,
+                ownerId: game.user.id,
+                goal: needtext[0].value,
+                score: parseFloat(3.05)
+            }
+            let currentNeeds = game.user.getFlag(constants.moduleName, constants.needFlag) || [];
+            currentNeeds.push(newNeed)
+            window.NeedsList.lockFlag();
+            await game.user.unsetFlag(constants.moduleName, constants.needFlag);
+            await game.user.setFlag(constants.moduleName, constants.needFlag, currentNeeds);
+            window.NeedsList.unlockFlag();
+            // Rerender the list
+            setTimeout(Socket.refreshNeedsList, constants.tableRefreshDelay);
+            // Clear out the text field
+            needtext.val('');
+            // And give it focus
+            needtext.focus();
+        }
+    }
     /**
      * Defines all event listeners like click, drag, drop etc.
      *
@@ -99,24 +151,7 @@ export default class NeedsList extends Application {
          * Submit a new request == create a new need
          */
         html.on("click", "#fplant-needlist-req-btn", async () => {
-            let needtext = $("#fplant-needlist-text");
-            let newNeed = {
-                id: Utils.makeGuid(),
-                ownerName: game.user.name,
-                ownerId: game.user.id,
-                goal: needtext[0].value,
-                score: parseFloat(3.05)
-            }
-            let currentNeeds = game.user.getFlag(constants.moduleName, constants.needFlag) || [];
-            currentNeeds.push(newNeed)
-            await game.user.unsetFlag(constants.moduleName, constants.needFlag);
-            await game.user.setFlag(constants.moduleName, constants.needFlag, currentNeeds);
-            // Rerender the list
-            setTimeout(Socket.refreshNeedsList, constants.tableRefreshDelay);
-            // Clear out the text field
-            needtext.val('');
-            // And give it focus
-            needtext.focus();
+            this.addNeed();
         });
 
         /**

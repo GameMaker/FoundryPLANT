@@ -5,7 +5,8 @@ let constants = {
     socketDomain: "module.FoundryPLANT",
     msgRefreshNeeds: "updateNeedsTable",
     settings: {
-        debugMode: "debugMode"
+        debugMode: "debugMode",
+        incrementTime: "needIncrementTime"
     }
 };
 export default constants;
