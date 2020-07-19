@@ -7,6 +7,16 @@ import Socket from "./utility/socket.mjs";
 import Need from "./entities/need.mjs";
 import Timer from "./utility/timer.mjs";
 
+// ALPHA TEST SESSION BUGS:
+// BUG - needlist title is not localizing on VM
+// BUG - needlist clears on updatescore on VM
+// BUG - only when in the world
+// BUG - give everyone 360 degree vision
+// BUG - upgrade CPU/VM/Net?
+// BUG - Get it installed / updating from github
+// BUG - Session planning - checkbox to identify what you want to do THIS session
+
+
 Hooks.on("init", () => {
     ModuleSettings.register()
 
