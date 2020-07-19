@@ -2,7 +2,6 @@
     "FoundryPLANT": {
         "Title": "Foundry PLANT",
         "ChatNeedButton": "I need something...",
-        "NeedsList.Title": "FoundryPLANT: Needs List",
         "NeedRequestButton": "Please",
         "GMClearAllGoalsButtonText": "DELETE ALL NEEDS!",
         "Settings": {

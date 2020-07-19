@@ -16,7 +16,6 @@ import Timer from "./utility/timer.mjs";
 // BUG - Get it installed / updating from github
 // BUG - Session planning - checkbox to identify what you want to do THIS session
 
-
 Hooks.on("init", () => {
     ModuleSettings.register()
 

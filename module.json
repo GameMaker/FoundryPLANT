@@ -1,6 +1,6 @@
 {
     "name": "FoundryPLANT",
-    "title": "PLANT - PLAyer Needs Tracker",
+    "title": "FoundryPLANT - The Foundry PLAyer Needs Tracker",
     "description": "A tracker/reminder to help DMs meet different players' needs",
     "author": "Gamemaker",
     "version": "0.0.1",
@@ -22,5 +22,7 @@
         }
     ],
     "url": "https://github.com/GameMaker/FoundryPLANT",
+    "manifest": "https://raw.githubusercontent.com/GameMaker/FoundryPLANT/master/module.json",
+    "download": "https://github.com/GameMaker/FoundryPLANT/archive/v0.1.zip",
     "socket": true
 }

@@ -18,7 +18,7 @@ export default class NeedsList extends Application {
             height: 400,
             minimizable: true,
             resizable: true,
-            title: game.i18n.localize("FoundryPLANT.NeedsList.Title"),
+            title: game.i18n.localize("FoundryPLANT.Title"),
         });
     }
 
