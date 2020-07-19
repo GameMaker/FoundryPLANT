@@ -1,17 +1,19 @@
 {
-    "name": "foundry-plant",
+    "name": "FoundryPLANT",
     "title": "PLANT - PLAyer Needs Tracker",
     "description": "A tracker/reminder to help DMs meet different players' needs",
-    "authors": [
-        {
-            "name": "Gamemaker",
-            "email": "pouncerproductions@yahoo.com",
-            "url": ""
-        }
-    ],
+    "author": "Gamemaker",
     "version": "0.0.1",
-    "minimumCoreVersion": "0.6.4",
-    "compatibleCoreVersion": "0.6.4",
+    "minimumCoreVersion": "0.6.5",
+    "compatibleCoreVersion": "0.6.5",
+    "scripts": [],
+    "esmodules": [
+        "modules/init.mjs",
+        "modules/apps/needs-list.mjs"
+    ],
+    "styles": [
+        "styles/init.css"
+    ],
     "languages": [
         {
             "lang": "en",
@@ -19,6 +21,13 @@
             "path": "lang/en.json"
         }
     ],
-    "url": "https://github.com/GameMaker/FoundryPlayerNeedTracker",
-    "manifest": "https://github.com/GameMaker/FoundryPlayerNeedTracker/blob/release/module.json"
- }
+    "url": "https://github.com/GameMaker/FoundryPLANT",
+    "socket": true
+}
+// ALPHA TEST SESSION BUGS:
+// BUG - needlist title is not localizing on VM
+// BUG - needlist clears on updatescore on VM
+// BUG - only when in the world
+// BUG - give everyone 360 degree vision
+// BUG - upgrade CPU/VM/Net?
+// BUG - Get it installed / updating from github

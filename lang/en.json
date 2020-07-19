@@ -1,0 +1,19 @@
+{
+    "FoundryPLANT": {
+        "Title": "Foundry PLANT",
+        "ChatNeedButton": "I need something...",
+        "NeedsList.Title": "FoundryPLANT: Needs List",
+        "NeedRequestButton": "Please",
+        "GMClearAllGoalsButtonText": "DELETE ALL NEEDS!",
+        "Settings": {
+            "debugMode": {
+                "Enable": "Debug Mode",
+                "EnableHint": "Enables browser console logging for the FoundryPLANT."
+            },
+            "incrementTime": {
+                "Enable": "Need Increment Time (seconds)",
+                "EnableHint": "Defines how many seconds between each increment of need scores (by 0.01)."
+            }
+        }
+    }
+}

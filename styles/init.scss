@@ -1,0 +1,114 @@
+$background-parchment-dark: url("/systems/dnd5e/ui/parchment.jpg") repeat;
+$background-checkmark: url("/modules/FoundryPLANT/images/check.png");
+$background-xmark: url("/modules/FoundryPLANT/images/x.png");
+$background-color-satisfied: rgba(32, 150, 32, 0.5);
+$background-color: rgba(255, 255, 240, 0.8);
+$background-header: #666;
+$border: #333;
+$border-active: #833;
+$footer-padding: 4px;
+$footer-size: 32px+2*$footer-padding;
+
+//
+// NEEDS LIST WINDOW CONTAINERS
+//
+.needs-list-div {
+    // overflow: scroll;
+}
+
+.needs-list-body {
+    height: calc(100% - 80px);
+}
+
+.footer {
+   position: absolute;
+   bottom: 20px;
+   width: 97.416%; // Don't ask.
+}
+
+//
+// NEEDS TABLE
+//
+.fplant-table-header-row {
+    border-bottom: 3px groove grey;
+}
+
+.fplant-table-row {
+    border-bottom: 1px solid grey;
+}
+
+// Columns
+.fplant-needs-table-owner {
+    width: 20%;
+}
+
+.fplant-needs-table-goal {
+    width: 60%;
+}
+
+.fplant-needs-table-score {
+    width: 5%;
+    text-align: center;
+}
+
+.fplant-needs-table-utils {
+    width: 15%;
+}
+
+.fplant-needs-table-alignright {
+    text-align: right;
+}
+
+.fplant-util-button {
+    width: 40%;
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 2em;
+    height: 2em;
+}
+
+.fplant-btn-need-satisfy {
+    background-image: $background-checkmark;
+    background-color: $background-color-satisfied;
+}
+
+.fplant-btn-need-delete {
+    background-image: $background-xmark;
+}
+
+// 
+// INPUTS
+//
+#fplant-gm-clear-all-goals-btn {
+    width: calc(100% - 200px);
+    vertical-align: top;
+}
+
+#fplant-needlist-text {
+    background: $background-color;
+    width: calc(100% - 50px);
+}
+
+#fplant-chatneed-btn {
+    cursor: pointer;
+    line-height: 16px;
+    max-width: 80%;
+    max-height: 30px;
+    margin: auto;
+    background: $background-parchment-dark;
+}
+
+.fplant-button-disabled {
+    opacity: 20%;
+    disabled: true;
+}
+
+.fplant-button {
+    margin: 5px;
+}
+
+.danger-button{
+    background-color: #800;
+    color: #fff;
+}
