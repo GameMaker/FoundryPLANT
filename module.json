@@ -23,6 +23,6 @@
     ],
     "url": "https://github.com/GameMaker/FoundryPLANT",
     "manifest": "https://raw.githubusercontent.com/GameMaker/FoundryPLANT/master/module.json",
-    "download": "https://github.com/GameMaker/FoundryPLANT/archive/v0.1.zip",
+    "download": "https://github.com/GameMaker/FoundryPLANT/releases/download/v0.1/FoundryPLANT.zip",
     "socket": true
 }
