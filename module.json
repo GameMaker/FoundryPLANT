@@ -24,3 +24,10 @@
     "url": "https://github.com/GameMaker/FoundryPLANT",
     "socket": true
 }
+// ALPHA TEST SESSION BUGS:
+// BUG - needlist title is not localizing on VM
+// BUG - needlist clears on updatescore on VM
+// BUG - only when in the world
+// BUG - give everyone 360 degree vision
+// BUG - upgrade CPU/VM/Net?
+// BUG - Get it installed / updating from github

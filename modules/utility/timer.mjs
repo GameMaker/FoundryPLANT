@@ -2,7 +2,6 @@ import constants from "../constants.mjs"
 
 export default class Timer {
     static intervalID = null;
-    // BUG - make this a config option
     // BUG - Localize the UI
 
     // BUG - if you pause the game, it will restart the timer from 0. When paused, it should pause, and resume with the remaining
