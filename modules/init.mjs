@@ -8,7 +8,6 @@ import Need from "./entities/need.mjs";
 import Timer from "./utility/timer.mjs";
 
 // ALPHA TEST SESSION BUGS:
-// BUG - needlist clears on updatescore on VM
 // BUG - Get it installed / updating from github
 // TODO - Session planning - checkbox to identify what you want to do THIS session
 
@@ -33,11 +32,13 @@ Hooks.on("renderNeedsList", () => {
 });
 
 Hooks.on("ready", () => {
+
     // Custom log function:
     window.trace = function stackTrace() {
         var err = new Error();
         return err.stack;
     }
+
     window.fplog = function (x) {
         if (!game.settings.get(constants.moduleName, constants.settings.debugMode)) return;
         var line = trace();
@@ -46,13 +47,16 @@ Hooks.on("ready", () => {
     }
 
 
-    // TODO - If there are two GMs, scores will go up twice as fast
     if (game.user.isGM) {
-        window.Timer = new Timer();
+        const numOfGMs = game.users.filter(u => u.isGM && u.active).length;
+        if (numOfGMs == 1) {
+            window.Timer = new Timer();
+            if (!game.paused) {
+                window.Timer.start(window.NeedsList.incrementAllScores);
+            }
+        }
     }
 
-    if (!game.paused)
-        window.Timer.start(window.NeedsList.incrementAllScores);
     // fplog("Listening on sockets");
     Socket.listen();
 });
