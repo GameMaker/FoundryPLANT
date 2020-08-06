@@ -3,7 +3,7 @@
     "title": "FoundryPLANT - The Foundry PLAyer Needs Tracker",
     "description": "A tracker/reminder to help DMs meet different players' needs",
     "author": "Gamemaker",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "minimumCoreVersion": "0.6.5",
     "compatibleCoreVersion": "0.6.5",
     "scripts": [],
