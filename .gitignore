@@ -2,3 +2,5 @@
 # You might need to npm install gulp gulp-sass gulp-less if moving to a new machine
 node_modules
 package-lock.json
+deploy.bat
+*.zip
