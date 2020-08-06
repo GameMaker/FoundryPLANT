@@ -68,6 +68,7 @@ export default class NeedsList extends Application {
     }
 
     incrementAllScores() {
+        // BUG - this has to be smarter about updating only dirty data.
         if (window.FoundryPLANTlockSemaphore) {
             let delay = 100 + (Math.random() * 400);
             console.log(constants.moduleName + ": Flag semaphore was locked - avoiding collision and waiting " + delay + "ms to increment scores");
