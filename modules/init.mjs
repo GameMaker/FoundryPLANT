@@ -8,13 +8,9 @@ import Need from "./entities/need.mjs";
 import Timer from "./utility/timer.mjs";
 
 // ALPHA TEST SESSION BUGS:
-// BUG - needlist title is not localizing on VM
 // BUG - needlist clears on updatescore on VM
-// BUG - only when in the world
-// BUG - give everyone 360 degree vision
-// BUG - upgrade CPU/VM/Net?
 // BUG - Get it installed / updating from github
-// BUG - Session planning - checkbox to identify what you want to do THIS session
+// TODO - Session planning - checkbox to identify what you want to do THIS session
 
 Hooks.on("init", () => {
     ModuleSettings.register()
@@ -25,8 +21,8 @@ Hooks.on("init", () => {
     Utils.registerHandlebarsHelpers();
 });
 
-// BUG - GM can click on any score and edit it directly.
-// BUG - add an 'active' checkbox for each - timer does not increase if not active
+// TODO - GM can click on any score and edit it directly.
+// FR - add an 'active' checkbox for each - timer does not increase if not active
 Hooks.on("setup", () => {
     window.NeedsList = new NeedsListClass();
     window.NeedsList.unlockFlag();
@@ -84,58 +80,67 @@ Hooks.on("pauseGame", () => {
     }
 })
 
-$(document).keypress(function (e) {
+// BUG - to improve rendering (stop flickering), try 
+// Hooks.on("updateUser", (e, changed) => {
+// changed contains everything that was changed, so if it contains our flag, do the thing
+// }
+
+
+$(document).keydown(function (e) {
     // TODO - should probably be its own module, frankly.
+    if (e.altKey == false) {
+        return;
+    }
     switch (e.which) {
-        case 33:
+        case 49:
             ui.sidebar.activateTab("chat");
             break;
-        case 64:
+        case 50:
             ui.sidebar.activateTab("combat");
             break;
-        case 35:
+        case 51:
             if (game.user.isGM)
                 ui.sidebar.activateTab("scenes");
             else
                 ui.sidebar.activateTab("actors");
             break;
-        case 36:
+        case 52:
             if (game.user.isGM)
                 ui.sidebar.activateTab("actors");
             else
                 ui.sidebar.activateTab("items");
             break;
-        case 37:
+        case 53:
             if (game.user.isGM)
                 ui.sidebar.activateTab("items");
             else
                 ui.sidebar.activateTab("journal");
             break;
-        case 94:
+        case 54:
             if (game.user.isGM)
                 ui.sidebar.activateTab("journal");
             else
                 ui.sidebar.activateTab("tables");
             break;
-        case 38:
+        case 55:
             if (game.user.isGM)
                 ui.sidebar.activateTab("tables");
             else
                 ui.sidebar.activateTab("playlists");
             break;
-        case 42:
+        case 56:
             if (game.user.isGM)
                 ui.sidebar.activateTab("playlists");
             else
                 ui.sidebar.activateTab("compendium");
             break;
-        case 40:
+        case 57:
             if (game.user.isGM)
                 ui.sidebar.activateTab("compendium");
             else
                 ui.sidebar.activateTab("settings");
             break;
-        case 41:
+        case 48:
             if (game.user.isGM)
                 ui.sidebar.activateTab("settings");
             break;
