@@ -12,7 +12,7 @@ del module.json
 setlocal enabledelayedexpansion
 for /F "tokens=*" %%A in (template.module.json) do (
     set line=%%A
-    set result=!line:FPVERSION=0.0.6!
+    set result=!line:FPVERSION=%FPVERSION%!
     echo.!result! >> module.json
 )
 
@@ -21,6 +21,8 @@ for /F "tokens=*" %%A in (template.module.json) do (
 git tag %FPVERSION%
 
 git push origin master
+
+git push origin --tags
 
 ECHO.
 ECHO.SUCCESS
@@ -34,5 +36,5 @@ GOTO :EOF
 REM ERROR HANDLING
 :NOVERSION
 ECHO ERROR - FPVERSION is NOT defined.
-ECHO use "set FPVERSION=x.y.z" where x, y, z are major, minor, count version numbers.
+ECHO Use "set FPVERSION=x.y.z" where x, y, z are major, minor, count version numbers.
 GOTO :EOF
