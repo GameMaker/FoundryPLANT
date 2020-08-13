@@ -22,6 +22,12 @@ git tag %FPVERSION%
 
 git push origin master
 
+ECHO.
+ECHO.SUCCESS
+ECHO.
+ECHO.Now create a release in github using tag %FPVERSION%, and attach FoundryPlant.zip.
+ECHO.
+
 REM All is well, exit normally
 GOTO :EOF
 
