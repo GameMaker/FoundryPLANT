@@ -1,1 +1,1 @@
-7z u -aoa @manifest
+7z u -aoa FoundryPlant.zip @manifest
