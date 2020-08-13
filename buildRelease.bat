@@ -34,4 +34,5 @@ GOTO :EOF
 REM ERROR HANDLING
 :NOVERSION
 ECHO ERROR - FPVERSION is NOT defined.
+ECHO use "set FPVERSION=x.y.z" where x, y, z are major, minor, count version numbers.
 GOTO :EOF
