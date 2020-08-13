@@ -18,6 +18,10 @@ for /F "tokens=*" %%A in (template.module.json) do (
 
 7z u -aoa FoundryPlant.zip @manifest
 
+git tag %FPVERSION%
+
+git push origin master
+
 REM All is well, exit normally
 GOTO :EOF
 
