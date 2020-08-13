@@ -1,0 +1,28 @@
+{
+    "name": "FoundryPLANT",
+    "title": "FoundryPLANT - The Foundry PLAyer Needs Tracker",
+    "description": "A tracker/reminder to help DMs meet different players' needs",
+    "author": "Gamemaker",
+    "version": "FPVERSION",
+    "minimumCoreVersion": "0.6.5",
+    "compatibleCoreVersion": "0.6.5",
+    "scripts": [],
+    "esmodules": [
+        "modules/init.mjs",
+        "modules/apps/needs-list.mjs"
+    ],
+    "styles": [
+        "styles/init.css"
+    ],
+    "languages": [
+        {
+            "lang": "en",
+            "name": "English",
+            "path": "lang/en.json"
+        }
+    ],
+    "url": "https://github.com/GameMaker/FoundryPLANT",
+    "manifest": "https://raw.githubusercontent.com/GameMaker/FoundryPLANT/master/module.json",
+    "download": "https://github.com/GameMaker/FoundryPLANT/releases/download/0.0.5/FoundryPLANT.zip",
+    "socket": true
+}
