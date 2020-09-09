@@ -13,20 +13,5 @@ export default class ModuleSettings {
             default: false,
             type: Boolean
         });
-        game.settings.register(constants.moduleName, constants.settings.incrementTime, {
-            name: constants.moduleName + ".Settings.incrementTime.Enable",
-            hint: constants.moduleName + ".Settings.incrementTime.EnableHint",
-            scope: "world",
-            config: true,
-            default: 36,
-            type: Number,
-            onChange: value => {
-                if (value < 1) {
-                    game.settings.set(constants.moduleName, constants.settings.incrementTime, 1);
-                }
-                window.Timer.stop();
-                window.Timer.start(window.NeedsList.incrementAllScores);
-            }
-        });
     }
 }

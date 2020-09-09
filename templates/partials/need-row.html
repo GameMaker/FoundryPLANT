@@ -2,14 +2,32 @@
 <tr class="fplant-table-row">
     <td class="fplant-needs-table-owner">{{ownerName}}</td>
     <td class="fplant-needs-table-goal">{{goal}}</td>
-    <td class="fplant-needs-table-score">{{score}}</td>
+    <td class="fplant-needs-table-rank">{{rank}}</td>
     <td class="fplant-needs-table-utils fplant-needs-table-alignright">
         {{#if (isGM)}}
-        <button class="fplant-util-button fplant-btn-need-satisfy" data-owner-id="{{ownerId}}" data-need-id="{{id}}">
-        </button>
+        <table>
+            <tr>
+                <td width="33%">
+                    {{#if (isNotTopRow)}}
+                    <button class="fplant-util-button fplant-btn-need-up" data-owner-id="{{ownerId}}"
+                        data-need-id="{{id}}">
+                    </button>
+                    {{/if}}
+                </td>
+                <td width="33%">
+                    {{#if (isNotBottomRow)}}
+                    <button class="fplant-util-button fplant-btn-need-down" data-owner-id="{{ownerId}}"
+                        data-need-id="{{id}}">
+                    </button>
+                    {{/if}}
+                </td>
+                <td width="34%">
+                    <button class="fplant-util-button danger-button fplant-btn-need-delete" data-owner-id="{{ownerId}}"
+                        data-need-id="{{id}}"> </button>
+                </td>
+            </tr>
+        </table>
         {{/if}}
-        <button class="fplant-util-button danger-button fplant-btn-need-delete" data-owner-id="{{ownerId}}"
-            data-need-id="{{id}}"> </button>
     </td>
 </tr>
 {{/each}}

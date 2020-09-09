@@ -18,7 +18,7 @@
 .fplant-needs-table-goal {
   width: 60%; }
 
-.fplant-needs-table-score {
+.fplant-needs-table-rank {
   width: 5%;
   text-align: center; }
 
@@ -36,9 +36,14 @@
   width: 2em;
   height: 2em; }
 
-.fplant-btn-need-satisfy {
-  background-image: url("/modules/FoundryPLANT/images/check.png");
-  background-color: rgba(32, 150, 32, 0.5); }
+.fplant-btn-need-down {
+  background-image: url("/modules/FoundryPLANT/images/arrow.png");
+  background-color: rgba(132, 195, 132, 0.2); }
+
+.fplant-btn-need-up {
+  background-image: url("/modules/FoundryPLANT/images/arrow.png");
+  transform: rotate(180deg);
+  background-color: rgba(132, 195, 132, 0.2); }
 
 .fplant-btn-need-delete {
   background-image: url("/modules/FoundryPLANT/images/x.png"); }

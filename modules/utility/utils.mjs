@@ -26,6 +26,14 @@ export default class Utils {
         Handlebars.registerHelper('isGM', () => {
             return game.user.isGM;
         });
+
+        Handlebars.registerHelper('isNotTopRow', (row) => {
+            return row.data.first != true;
+        })
+
+        Handlebars.registerHelper('isNotBottomRow', (row) => {
+            return row.data.last != true;
+        })
     }
 
     static makeGuid() {

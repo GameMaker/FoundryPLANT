@@ -1,7 +1,7 @@
 $background-parchment-dark: url("/systems/dnd5e/ui/parchment.jpg") repeat;
-$background-checkmark: url("/modules/FoundryPLANT/images/check.png");
+$background-down-arrow: url("/modules/FoundryPLANT/images/arrow.png");
 $background-xmark: url("/modules/FoundryPLANT/images/x.png");
-$background-color-satisfied: rgba(32, 150, 32, 0.5);
+$background-color-arrow: rgba(132, 195, 132, 0.2);
 $background-color: rgba(255, 255, 240, 0.8);
 $background-header: #666;
 $border: #333;
@@ -46,7 +46,7 @@ $footer-size: 32px+2*$footer-padding;
     width: 60%;
 }
 
-.fplant-needs-table-score {
+.fplant-needs-table-rank {
     width: 5%;
     text-align: center;
 }
@@ -68,9 +68,15 @@ $footer-size: 32px+2*$footer-padding;
     height: 2em;
 }
 
-.fplant-btn-need-satisfy {
-    background-image: $background-checkmark;
-    background-color: $background-color-satisfied;
+.fplant-btn-need-down {
+    background-image: $background-down-arrow;
+    background-color: $background-color-arrow;
+}
+
+.fplant-btn-need-up {
+    background-image: $background-down-arrow;
+    transform: rotate(180deg);
+    background-color: $background-color-arrow;
 }
 
 .fplant-btn-need-delete {

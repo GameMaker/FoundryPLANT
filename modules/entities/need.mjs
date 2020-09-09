@@ -5,7 +5,7 @@ export default class Need {
         this._id = data.id || null;
         this.owner = data.owner || null;
         this.goal = data.goal || null;
-        this.score = data.score || null;
+        this.rank = data.rank || null;
     }
 
     /**
@@ -28,19 +28,19 @@ export default class Need {
             })
         })
 
-        // Descending by score
+        // Ascending by rank
         entries.sort((a, b) => {
-            if (a.score < b.score)
+            if (a.rank > b.rank)
                 return 1;
-            if (a.score > b.score)
+            if (a.rank < b.rank)
                 return -1;
             return 0;
         });
 
         const needs = {
             all: entries,
-            highpri: entries.filter(e => e.score >= 7),
-            lowpri: entries.filter(e => e.score < 7)
+            highpri: entries.filter(e => e.rank <= 3),
+            lowpri: entries.filter(e => e.rank > 3)
         };
 
         return needs;

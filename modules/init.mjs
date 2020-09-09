@@ -5,10 +5,8 @@ import constants from "./constants.mjs";
 import ModuleSettings from "./utility/config.mjs";
 import Socket from "./utility/socket.mjs";
 import Need from "./entities/need.mjs";
-import Timer from "./utility/timer.mjs";
 
 // ALPHA TEST SESSION BUGS:
-// BUG - Get it installed / updating from github
 // TODO - Session planning - checkbox to identify what you want to do THIS session
 
 Hooks.on("init", () => {
@@ -20,11 +18,8 @@ Hooks.on("init", () => {
     Utils.registerHandlebarsHelpers();
 });
 
-// TODO - GM can click on any score and edit it directly.
-// FR - add an 'active' checkbox for each - timer does not increase if not active
 Hooks.on("setup", () => {
     window.NeedsList = new NeedsListClass();
-    window.NeedsList.unlockFlag();
 });
 
 Hooks.on("renderNeedsList", () => {
@@ -46,17 +41,6 @@ Hooks.on("ready", () => {
         console.log(constants.moduleName + ": " + x + " " + lines[2].substring(lines[2].indexOf("("), lines[2].lastIndexOf(")") + 1))
     }
 
-
-    if (game.user.isGM) {
-        const numOfGMs = game.users.filter(u => u.isGM && u.active).length;
-        if (numOfGMs == 1) {
-            window.Timer = new Timer();
-            if (!game.paused) {
-                window.Timer.start(window.NeedsList.incrementAllScores);
-            }
-        }
-    }
-
     // fplog("Listening on sockets");
     Socket.listen();
 });
@@ -74,21 +58,6 @@ Hooks.on("renderChatLog", (app, html, data) => {
         NeedsList.render(true);
     });
 });
-
-Hooks.on("pauseGame", () => {
-    // fplog("Game pause triggered, game is " + (game.paused ? "paused" : "not paused"));
-    if (game.paused) {
-        window.Timer.stop();
-    } else {
-        window.Timer.start(NeedsList.incrementAllScores);
-    }
-})
-
-// BUG - to improve rendering (stop flickering), try 
-// Hooks.on("updateUser", (e, changed) => {
-// changed contains everything that was changed, so if it contains our flag, do the thing
-// }
-
 
 $(document).keydown(function (e) {
     // TODO - should probably be its own module, frankly.

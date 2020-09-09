@@ -6,7 +6,6 @@ modules/apps/needs-list.mjs
 modules/entities/need.mjs
 modules/utility/config.mjs
 modules/utility/socket.mjs
-modules/utility/timer.mjs
 modules/utility/utils.mjs
 modules/constants.mjs
 modules/init.mjs
