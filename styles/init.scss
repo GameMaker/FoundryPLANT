@@ -1,3 +1,6 @@
+// Don't forget to start gulp in this directory when editing!
+// cd <path-to-here>
+// gulp
 $background-parchment-dark: url("/systems/dnd5e/ui/parchment.jpg") repeat;
 $background-down-arrow: url("/modules/FoundryPLANT/images/arrow.png");
 $background-xmark: url("/modules/FoundryPLANT/images/x.png");
@@ -26,6 +29,14 @@ $footer-size: 32px+2*$footer-padding;
    width: 97.416%; // Don't ask.
 }
 
+.needs-list-table {
+    margin: 0px !important;
+}
+
+table {
+    margin: 0px !important;
+}
+
 //
 // NEEDS TABLE
 //
@@ -35,6 +46,7 @@ $footer-size: 32px+2*$footer-padding;
 
 .fplant-table-row {
     border-bottom: 1px solid grey;
+    margin: 0px;
 }
 
 // Columns
@@ -51,8 +63,12 @@ $footer-size: 32px+2*$footer-padding;
     text-align: center;
 }
 
-.fplant-needs-table-utils {
-    width: 15%;
+.fplant-needs-table-button {
+    width: 5%;
+}
+
+.fplant-needs-button {
+    width: 5%;
 }
 
 .fplant-needs-table-alignright {
@@ -65,21 +81,24 @@ $footer-size: 32px+2*$footer-padding;
     background-repeat: no-repeat;
     background-position: center center;
     width: 2em;
-    height: 2em;
+    height: 1em;
 }
 
 .fplant-btn-need-down {
+    background-size: 50%;
     background-image: $background-down-arrow;
     background-color: $background-color-arrow;
 }
 
 .fplant-btn-need-up {
+    background-size: 50%;
     background-image: $background-down-arrow;
     transform: rotate(180deg);
     background-color: $background-color-arrow;
 }
 
 .fplant-btn-need-delete {
+    background-size: 50%;
     background-image: $background-xmark;
 }
 

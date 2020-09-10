@@ -1,7 +1,13 @@
 <tr class="fplant-table-header-row">
+    {{#if (isGM)}}
     <th class="fplant-needs-table-owner">Owner</th>
+    {{/if}}
     <th class="fplant-needs-table-goal">Goal</th>
+    {{#if (isGM)}}
     <th class="fplant-needs-table-rank">Rank</th>
-    <th class="fplant-needs-table-utils"></th>
+    <th class="fplant-needs-table-button"></th>
+    <th class="fplant-needs-table-button"></th>
+    <th class="fplant-needs-table-button"></th>
+    {{/if}}
 </tr>
 {{> "modules/FoundryPLANT/templates/partials/need-row.html" needs=(needsToShow) isGM=isGM}}

@@ -6,11 +6,18 @@
   bottom: 20px;
   width: 97.416%; }
 
+.needs-list-table {
+  margin: 0px !important; }
+
+table {
+  margin: 0px !important; }
+
 .fplant-table-header-row {
   border-bottom: 3px groove black; }
 
 .fplant-table-row {
-  border-bottom: 1px solid grey; }
+  border-bottom: 1px solid grey;
+  margin: 0px; }
 
 .fplant-needs-table-owner {
   width: 20%; }
@@ -22,8 +29,11 @@
   width: 5%;
   text-align: center; }
 
-.fplant-needs-table-utils {
-  width: 15%; }
+.fplant-needs-table-button {
+  width: 5%; }
+
+.fplant-needs-button {
+  width: 5%; }
 
 .fplant-needs-table-alignright {
   text-align: right; }
@@ -34,18 +44,21 @@
   background-repeat: no-repeat;
   background-position: center center;
   width: 2em;
-  height: 2em; }
+  height: 1em; }
 
 .fplant-btn-need-down {
+  background-size: 50%;
   background-image: url("/modules/FoundryPLANT/images/arrow.png");
   background-color: rgba(132, 195, 132, 0.2); }
 
 .fplant-btn-need-up {
+  background-size: 50%;
   background-image: url("/modules/FoundryPLANT/images/arrow.png");
   transform: rotate(180deg);
   background-color: rgba(132, 195, 132, 0.2); }
 
 .fplant-btn-need-delete {
+  background-size: 50%;
   background-image: url("/modules/FoundryPLANT/images/x.png"); }
 
 #fplant-gm-clear-all-goals-btn {

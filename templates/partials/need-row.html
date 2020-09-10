@@ -1,33 +1,27 @@
 {{#each needs}}
 <tr class="fplant-table-row">
+    {{#if (isGM)}}
     <td class="fplant-needs-table-owner">{{ownerName}}</td>
+    {{/if}}
     <td class="fplant-needs-table-goal">{{goal}}</td>
+    {{#if (isGM)}}
     <td class="fplant-needs-table-rank">{{rank}}</td>
-    <td class="fplant-needs-table-utils fplant-needs-table-alignright">
-        {{#if (isGM)}}
-        <table>
-            <tr>
-                <td width="33%">
-                    {{#if (isNotTopRow)}}
-                    <button class="fplant-util-button fplant-btn-need-up" data-owner-id="{{ownerId}}"
-                        data-need-id="{{id}}">
-                    </button>
-                    {{/if}}
-                </td>
-                <td width="33%">
-                    {{#if (isNotBottomRow)}}
-                    <button class="fplant-util-button fplant-btn-need-down" data-owner-id="{{ownerId}}"
-                        data-need-id="{{id}}">
-                    </button>
-                    {{/if}}
-                </td>
-                <td width="34%">
-                    <button class="fplant-util-button danger-button fplant-btn-need-delete" data-owner-id="{{ownerId}}"
-                        data-need-id="{{id}}"> </button>
-                </td>
-            </tr>
-        </table>
+    <td class="fplant-needs-button">
+        {{#if (isNotTopRow)}}
+        <button class="fplant-util-button fplant-btn-need-up" data-owner-id="{{ownerId}}" data-need-id="{{id}}">
+        </button>
         {{/if}}
     </td>
+    <td class="fplant-needs-button">
+        {{#if (isNotBottomRow)}}
+        <button class="fplant-util-button fplant-btn-need-down" data-owner-id="{{ownerId}}" data-need-id="{{id}}">
+        </button>
+        {{/if}}
+    </td>
+    <td class="fplant-needs-button">
+        <button class="fplant-util-button danger-button fplant-btn-need-delete" data-owner-id="{{ownerId}}"
+            data-need-id="{{id}}"> </button>
+    </td>
+    {{/if}}
 </tr>
 {{/each}}
