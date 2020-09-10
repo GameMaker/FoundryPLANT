@@ -13,5 +13,13 @@ export default class ModuleSettings {
             default: false,
             type: Boolean
         });
+        game.settings.register(constants.moduleName, constants.settings.hotKeys, {
+            name: constants.moduleName + ".Settings.hotKeys.Enable",
+            hint: constants.moduleName + ".Settings.hotKeys.EnableHint",
+            scope: "world",
+            config: true,
+            default: false,
+            type: Boolean
+        });
     }
 }

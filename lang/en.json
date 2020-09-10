@@ -8,6 +8,10 @@
             "debugMode": {
                 "Enable": "Debug Mode",
                 "EnableHint": "Enables browser console logging for the FoundryPLANT."
+            },
+            "hotKeys": {
+                "Enable": "Hotkeys Active",
+                "EnableHint": "Use Alt+<number> to quickly select Chat, Scenes, Journal, etc."
             }
         }
     }

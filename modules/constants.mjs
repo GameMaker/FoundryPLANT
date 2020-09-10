@@ -6,7 +6,7 @@ let constants = {
     msgRefreshNeeds: "updateNeedsTable",
     settings: {
         debugMode: "debugMode",
-        incrementTime: "needIncrementTime"
+        hotKeys: "hotKeys"
     }
 };
 export default constants;

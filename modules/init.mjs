@@ -6,9 +6,6 @@ import ModuleSettings from "./utility/config.mjs";
 import Socket from "./utility/socket.mjs";
 import Need from "./entities/need.mjs";
 
-// ALPHA TEST SESSION BUGS:
-// TODO - Session planning - checkbox to identify what you want to do THIS session
-
 Hooks.on("init", () => {
     ModuleSettings.register()
 
@@ -60,7 +57,7 @@ Hooks.on("renderChatLog", (app, html, data) => {
 });
 
 $(document).keydown(function (e) {
-    // TODO - should probably be its own module, frankly.
+    if (!game.settings.get(constants.moduleName, constants.settings.hotKeys)) { return; }
     if (e.altKey == false) {
         return;
     }
