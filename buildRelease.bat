@@ -1,3 +1,10 @@
+REM HOW FOUNDRY DETERMINES IF THERE IS AN UPDATE (per cole@ on Discord)
+REM It determines whether there's an update by comparing the "version" key in the local module.json to the 
+REM "version" key in the module.json that's pointed to by the "manifest" key of the local module.json (which 
+REM should be "stable" and always point to the latest version, usually the master branch). From what I can see 
+REM comparing your 0.0.7 tag module.json and the master branch module.json it seems like you've got it set up correct
+REM
+REM Note - if it doesn't 'take' right away, try CTRL+F5
 ECHO OFF
 ECHO.
 ECHO.
