@@ -5,7 +5,7 @@
     "author": "Gamemaker",
     "version": "FPVERSION",
     "minimumCoreVersion": "0.6.5",
-    "compatibleCoreVersion": "0.6.5",
+    "compatibleCoreVersion": "0.6.7",
     "scripts": [],
     "esmodules": [
         "modules/init.mjs",
