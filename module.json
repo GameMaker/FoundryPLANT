@@ -3,9 +3,9 @@
 "title": "FoundryPLANT - The Foundry PLAyer Needs Tracker", 
 "description": "A tracker/reminder to help DMs meet different players' needs", 
 "author": "Gamemaker", 
-"version": "0.0.91", 
+"version": "0.0.92", 
 "minimumCoreVersion": "0.6.5", 
-"compatibleCoreVersion": "0.6.5", 
+"compatibleCoreVersion": "0.6.7", 
 "scripts": [], 
 "esmodules": [ 
 "modules/init.mjs", 
@@ -23,6 +23,6 @@
 ], 
 "url": "https://github.com/GameMaker/FoundryPLANT", 
 "manifest": "https://raw.githubusercontent.com/GameMaker/FoundryPLANT/master/module.json", 
-"download": "https://github.com/GameMaker/FoundryPLANT/releases/download/0.0.91/FoundryPLANT.zip", 
+"download": "https://github.com/GameMaker/FoundryPLANT/releases/download/0.0.92/FoundryPLANT.zip", 
 "socket": true 
 } 
