@@ -37,4 +37,5 @@ REM ERROR HANDLING
 :NOVERSION
 ECHO ERROR - FPVERSION is NOT defined.
 ECHO Use "set FPVERSION=x.y.z" where x, y, z are major, minor, count version numbers.
+ECHO Check the most recent version on github to see where to start.
 GOTO :EOF
