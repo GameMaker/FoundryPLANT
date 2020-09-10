@@ -260,8 +260,6 @@ export default class NeedsList extends Application {
             await owner.setFlag(constants.moduleName, constants.needFlag, ownerNeeds);
 
             // Prioritize all the ones below it
-            // TODO: If you're GMing on the desktop app, deleting is horrifically bad
-            // It deletes whole blocks - I think it might be a timing issue, or the way it handles await?
             let dirtyBit = false;
             let needs = null;
             // For each user
