@@ -12,6 +12,10 @@
             "hotKeys": {
                 "Enable": "Hotkeys Active",
                 "EnableHint": "Use Alt+<number> to quickly select Chat, Scenes, Journal, etc."
+            },
+            "cheatSheet": {
+                "Name": "Cheat Sheet",
+                "NameHint": "Title of journal entry to show on Alt-/ (help) button."
             }
         }
     }

@@ -6,20 +6,28 @@ export default class ModuleSettings {
      */
     static register() {
         game.settings.register(constants.moduleName, constants.settings.debugMode, {
-            name: constants.moduleName + ".Settings.debugMode.Enable",
-            hint: constants.moduleName + ".Settings.debugMode.EnableHint",
+            name: constants.moduleName + ".Settings." + constants.settings.debugMode + ".Enable",
+            hint: constants.moduleName + ".Settings." + constants.settings.debugMode + ".EnableHint",
             scope: "world",
             config: true,
             default: false,
             type: Boolean
         });
         game.settings.register(constants.moduleName, constants.settings.hotKeys, {
-            name: constants.moduleName + ".Settings.hotKeys.Enable",
-            hint: constants.moduleName + ".Settings.hotKeys.EnableHint",
+            name: constants.moduleName + ".Settings." + constants.settings.hotKeys + ".Enable",
+            hint: constants.moduleName + ".Settings." + constants.settings.hotKeys + ".EnableHint",
             scope: "world",
             config: true,
             default: false,
             type: Boolean
+        });
+        game.settings.register(constants.moduleName, constants.settings.cheatSheet, {
+            name: constants.moduleName + ".Settings." + constants.settings.cheatSheet + ".Name",
+            hint: constants.moduleName + ".Settings." + constants.settings.cheatSheet + ".NameHint",
+            scope: "world",
+            config: true,
+            default: "Cheat Sheet",
+            type: String
         });
     }
 }

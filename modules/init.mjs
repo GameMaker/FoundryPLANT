@@ -58,61 +58,73 @@ Hooks.on("renderChatLog", (app, html, data) => {
 
 $(document).keydown(function (e) {
     if (!game.settings.get(constants.moduleName, constants.settings.hotKeys)) { return; }
-    if (e.altKey == false) {
-        return;
-    }
-    switch (e.which) {
-        case 49:
-            ui.sidebar.activateTab("chat");
-            break;
-        case 50:
-            ui.sidebar.activateTab("combat");
-            break;
-        case 51:
-            if (game.user.isGM)
-                ui.sidebar.activateTab("scenes");
-            else
-                ui.sidebar.activateTab("actors");
-            break;
-        case 52:
-            if (game.user.isGM)
-                ui.sidebar.activateTab("actors");
-            else
-                ui.sidebar.activateTab("items");
-            break;
-        case 53:
-            if (game.user.isGM)
-                ui.sidebar.activateTab("items");
-            else
-                ui.sidebar.activateTab("journal");
-            break;
-        case 54:
-            if (game.user.isGM)
-                ui.sidebar.activateTab("journal");
-            else
-                ui.sidebar.activateTab("tables");
-            break;
-        case 55:
-            if (game.user.isGM)
-                ui.sidebar.activateTab("tables");
-            else
-                ui.sidebar.activateTab("playlists");
-            break;
-        case 56:
-            if (game.user.isGM)
-                ui.sidebar.activateTab("playlists");
-            else
-                ui.sidebar.activateTab("compendium");
-            break;
-        case 57:
-            if (game.user.isGM)
-                ui.sidebar.activateTab("compendium");
-            else
-                ui.sidebar.activateTab("settings");
-            break;
-        case 48:
-            if (game.user.isGM)
-                ui.sidebar.activateTab("settings");
-            break;
+    if (e.altKey == true) {
+        switch (e.which) {
+            case 49:
+                ui.sidebar.activateTab("chat");
+                break;
+            case 50:
+                ui.sidebar.activateTab("combat");
+                break;
+            case 51:
+                if (game.user.isGM)
+                    ui.sidebar.activateTab("scenes");
+                else
+                    ui.sidebar.activateTab("actors");
+                break;
+            case 52:
+                if (game.user.isGM)
+                    ui.sidebar.activateTab("actors");
+                else
+                    ui.sidebar.activateTab("items");
+                break;
+            case 53:
+                if (game.user.isGM)
+                    ui.sidebar.activateTab("items");
+                else
+                    ui.sidebar.activateTab("journal");
+                break;
+            case 54:
+                if (game.user.isGM)
+                    ui.sidebar.activateTab("journal");
+                else
+                    ui.sidebar.activateTab("tables");
+                break;
+            case 55:
+                if (game.user.isGM)
+                    ui.sidebar.activateTab("tables");
+                else
+                    ui.sidebar.activateTab("playlists");
+                break;
+            case 56:
+                if (game.user.isGM)
+                    ui.sidebar.activateTab("playlists");
+                else
+                    ui.sidebar.activateTab("compendium");
+                break;
+            case 57:
+                if (game.user.isGM)
+                    ui.sidebar.activateTab("compendium");
+                else
+                    ui.sidebar.activateTab("settings");
+                break;
+            case 48:
+                if (game.user.isGM)
+                    ui.sidebar.activateTab("settings");
+                break;
+            case 191:
+                let name = game.settings.get(constants.moduleName, constants.settings.cheatSheet);
+                if (name != null && name != "") {
+                    let entry = game.journal.getName(name);
+                    if (entry != null) {
+                        entry.show();
+                    } else {
+                        console.log(constants.moduleName + ": Could not find entry with name '" + name + "'");
+                    }
+                } else {
+                    console.log(constants.moduleName + ": Could not get a name from setting " + constants.moduleName + "." + constants.settings.cheatSheet);
+                }
+                break;
+        }
     }
 });
