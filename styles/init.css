@@ -1,11 +1,6 @@
 .needs-list-body {
   height: calc(100% - 80px); }
 
-.footer {
-  position: absolute;
-  bottom: 20px;
-  width: 97.416%; }
-
 .needs-list-table {
   margin: 0px !important; }
 

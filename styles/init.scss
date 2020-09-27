@@ -15,18 +15,8 @@ $footer-size: 32px+2*$footer-padding;
 //
 // NEEDS LIST WINDOW CONTAINERS
 //
-.needs-list-div {
-    // overflow: scroll;
-}
-
 .needs-list-body {
     height: calc(100% - 80px);
-}
-
-.footer {
-   position: absolute;
-   bottom: 20px;
-   width: 97.416%; // Don't ask.
 }
 
 .needs-list-table {
