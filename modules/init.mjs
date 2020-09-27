@@ -142,7 +142,7 @@ $(document).keydown(function (e) {
                 if (name != null && name != "") {
                     let entry = game.journal.getName(name);
                     if (entry != null) {
-                        entry.show();
+                        game.journal.getName(name).sheet.render(true);
                         shouldEat = true;
                     } else {
                         console.log(constants.moduleName + ": Could not find entry with name '" + name + "'");
