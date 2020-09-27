@@ -59,58 +59,83 @@ Hooks.on("renderChatLog", (app, html, data) => {
 $(document).keydown(function (e) {
     if (!game.settings.get(constants.moduleName, constants.settings.hotKeys)) { return; }
     if (e.altKey == true) {
+        let shouldEat = false;
         switch (e.which) {
             case 49:
                 ui.sidebar.activateTab("chat");
+                shouldEat = true;
                 break;
             case 50:
                 ui.sidebar.activateTab("combat");
+                shouldEat = true;
                 break;
             case 51:
-                if (game.user.isGM)
+                if (game.user.isGM) {
                     ui.sidebar.activateTab("scenes");
-                else
+                    shouldEat = true;
+                } else {
                     ui.sidebar.activateTab("actors");
+                    shouldEat = true;
+                }
                 break;
             case 52:
-                if (game.user.isGM)
+                if (game.user.isGM) {
                     ui.sidebar.activateTab("actors");
-                else
+                    shouldEat = true;
+                } else {
                     ui.sidebar.activateTab("items");
+                    shouldEat = true;
+                }
                 break;
             case 53:
-                if (game.user.isGM)
+                if (game.user.isGM) {
                     ui.sidebar.activateTab("items");
-                else
+                    shouldEat = true;
+                } else {
                     ui.sidebar.activateTab("journal");
+                    shouldEat = true;
+                }
                 break;
             case 54:
-                if (game.user.isGM)
+                if (game.user.isGM) {
                     ui.sidebar.activateTab("journal");
-                else
+                    shouldEat = true;
+                } else {
                     ui.sidebar.activateTab("tables");
+                    shouldEat = true;
+                }
                 break;
             case 55:
-                if (game.user.isGM)
+                if (game.user.isGM) {
                     ui.sidebar.activateTab("tables");
-                else
+                    shouldEat = true;
+                } else {
                     ui.sidebar.activateTab("playlists");
+                    shouldEat = true;
+                }
                 break;
             case 56:
-                if (game.user.isGM)
+                if (game.user.isGM) {
                     ui.sidebar.activateTab("playlists");
-                else
+                    shouldEat = true;
+                } else {
                     ui.sidebar.activateTab("compendium");
+                    shouldEat = true;
+                }
                 break;
             case 57:
-                if (game.user.isGM)
+                if (game.user.isGM) {
                     ui.sidebar.activateTab("compendium");
-                else
+                    shouldEat = true;
+                } else {
                     ui.sidebar.activateTab("settings");
-                break;
+                    shouldEat = true;
+                } break;
             case 48:
-                if (game.user.isGM)
+                if (game.user.isGM) {
                     ui.sidebar.activateTab("settings");
+                    shouldEat = true;
+                }
                 break;
             case 191:
                 let name = game.settings.get(constants.moduleName, constants.settings.cheatSheet);
@@ -118,6 +143,7 @@ $(document).keydown(function (e) {
                     let entry = game.journal.getName(name);
                     if (entry != null) {
                         entry.show();
+                        shouldEat = true;
                     } else {
                         console.log(constants.moduleName + ": Could not find entry with name '" + name + "'");
                     }
@@ -125,6 +151,9 @@ $(document).keydown(function (e) {
                     console.log(constants.moduleName + ": Could not get a name from setting " + constants.moduleName + "." + constants.settings.cheatSheet);
                 }
                 break;
+        }
+        if (shouldEat) {
+            e.stopPropagation();
         }
     }
 });
