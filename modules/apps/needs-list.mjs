@@ -14,8 +14,8 @@ export default class NeedsList extends Application {
             id: constants.moduleName,
             classes: [constants.moduleName],
             template: "modules/FoundryPLANT/templates/needs-list.html",
-            width: 700,
-            height: 400,
+            width: 900,
+            height: 600,
             minimizable: true,
             resizable: true,
             title: game.i18n.localize("FoundryPLANT.Title"),
@@ -32,9 +32,9 @@ export default class NeedsList extends Application {
         fplog("Needslist.getdata");
         let available = true;
         let sd = super.getData();
-        // fplog("got superdata");
+        fplog("got superdata");
         let nds = Need.getNeeds();
-        // fplog("got needs");
+        fplog("got needs");
         let all = mergeObject(sd, {
             options: options,
             isGM: game.user.isGM,
@@ -55,18 +55,41 @@ export default class NeedsList extends Application {
         });
     }
 
+    // This is where you put hacks for applying changes to all needs. _sigh_
+    // fixNeeds() {
+    //     fplog("Starting fixNeeds()");
+    //     game.users.forEach(async (u) => {
+    //         fplog("FIXING: player ", u);
+    //         var needs = u.getFlag(constants.moduleName, constants.needFlag);
+    //         fplog("Needs: ", needs);
+    //         // For each of that user's needs,
+    //         if (needs != undefined) {
+    //             needs.forEach(n => {
+    //                 fplog("Fixing n, current rank " + n.rank);
+    //                 n.rank = parseInt(n.rank + 2);
+    //                 fplog("Now its rank is " + n.rank);
+    //             })
+    //             let needCopy = needs;
+    //             await u.unsetFlag(constants.moduleName, constants.needFlag);
+    //             await u.setFlag(constants.moduleName, constants.needFlag, needCopy);
+    //             fplog("After setting, user's needs are ", u.getFlag(constants.moduleName, constants.needFlag));
+    //         }
+    //     });
+    //     fplog("Done fixNeeds()");
+    // }
+
     async updateNeedsTable() {
-        // fplog("UpdatingNeedsTable()");
+        fplog("UpdatingNeedsTable()");
         let data = this.getData();
-        // fplog("Got data");
-        // data.needs.all.forEach(d => {
-        // console.log(d.goal + ", " + d.score + ", " + d.rank);
-        // });
+        fplog("Got data:");
+        data.needs.all.forEach(d => {
+            fplog(d.goal + ", " + d.score + ", " + d.rank);
+        });
         renderTemplate("modules/FoundryPLANT/templates/partials/needs-table.html", data).then((generatedHTML) => {
-            // fplog("compiled table", generatedHTML);
+            fplog("compiled table", generatedHTML);
             var resultContainer = document.getElementById("needs-list-table");
             resultContainer.innerHTML = generatedHTML
-            // fplog("assigned table");
+            fplog("assigned innerHTML of table to generated HTML");
         });
     }
 
@@ -91,6 +114,7 @@ export default class NeedsList extends Application {
         // And give it focus
         needtext.focus();
     }
+
     /**
      * Defines all event listeners like click, drag, drop etc.
      *
@@ -175,7 +199,7 @@ export default class NeedsList extends Application {
             let otherOwnerNeeds = otherOwner.getFlag(constants.moduleName, constants.needFlag);
             for (let i = 0; i < otherOwnerNeeds.length; i++) {
                 if (otherOwnerNeeds[i].id == otherNeedId) {
-                    console.log("Fixing " + otherOwnerNeeds[i].goal);
+                    fplog("Fixing " + otherOwnerNeeds[i].goal);
                     otherOwnerNeeds[i].rank = parseInt(newRank - 1);
                     break;
                 }
@@ -206,25 +230,25 @@ export default class NeedsList extends Application {
 
             // Also update and save the one it replaces
             let allNeeds = this.getData().needs.all;
-            console.log("The current ID is " + needId);
+            fplog("The current ID is " + needId);
             let otherOwnerId = null;
             let otherNeedId = null;
             for (let i = 0; i < allNeeds.length; i++) {
-                console.log(allNeeds[i]);
+                fplog(allNeeds[i]);
                 if (allNeeds[i].rank == newRank && allNeeds[i].id != needId) {
-                    console.log("Found it: " + allNeeds[i].goal + " (id: " + allNeeds[i].id + ")");
+                    fplog("Found it: " + allNeeds[i].goal + " (id: " + allNeeds[i].id + ")");
                     otherOwnerId = allNeeds[i].ownerId;
                     otherNeedId = allNeeds[i].id;
                     break;
                 }
             };
-            console.log("Fixing other with ID " + otherNeedId);
+            fplog("Fixing other with ID " + otherNeedId);
             let otherOwner = game.users.get(otherOwnerId);
-            console.log("Other owner is " + otherOwner);
+            fplog("Other owner is " + otherOwner);
             let otherOwnerNeeds = otherOwner.getFlag(constants.moduleName, constants.needFlag);
             for (let i = 0; i < otherOwnerNeeds.length; i++) {
                 if (otherOwnerNeeds[i].id == otherNeedId) {
-                    console.log("Fixing " + otherOwnerNeeds[i].goal);
+                    fplog("Fixing " + otherOwnerNeeds[i].goal);
                     otherOwnerNeeds[i].rank = parseInt(newRank + 1);
                     break;
                 }
@@ -238,24 +262,25 @@ export default class NeedsList extends Application {
          * Delete a need - it was a one-time need that's been met
          */
         html.on("click", ".fplant-btn-need-delete", async (e) => {
-            // fplog("Current user ID " + game.user.id);
+            fplog("Current user ID " + game.user.id);
             let ownerId = e.currentTarget.dataset.ownerId;
-            // fplog("deleted need owner ID " + ownerId);
+            fplog("deleted need owner ID " + ownerId);
             let needId = e.currentTarget.dataset.needId;
             let owner = game.users.get(ownerId);
-            // fplog("owner is " + owner.name);
+            fplog("owner is " + owner.name);
             let ownerNeeds = owner.getFlag(constants.moduleName, constants.needFlag);
-            // fplog("Owner needs before" + ownerNeeds.length);
+            fplog("Length of Owner needs before: " + ownerNeeds.length);
             let deletedRank = -1;
+            // Delete the need from the owner user's array of needs
             for (let i = 0; i < ownerNeeds.length; i++) {
                 if (ownerNeeds[i].id == needId) {
                     deletedRank = ownerNeeds[i].rank;
-                    console.log("Deleted the one with rank " + deletedRank);
                     ownerNeeds.splice(i, 1);
                     break;
                 }
             }
-            // fplog("Owner needs after" + ownerNeeds.length);
+            fplog("Length of Owner needs after: " + ownerNeeds.length);
+            // Save the new array into the user's flag, with the item deleted.
             await owner.unsetFlag(constants.moduleName, constants.needFlag);
             await owner.setFlag(constants.moduleName, constants.needFlag, ownerNeeds);
 
@@ -263,40 +288,37 @@ export default class NeedsList extends Application {
             let dirtyBit = false;
             let needs = null;
             // For each user
-            console.log("users:");
-            console.log(game.users);
             game.users.forEach(async (u) => {
                 // Clear dirty bit
                 dirtyBit = false;
                 // Get that user's needs
-                console.log(u.name + "'s Needs:");
                 needs = u.getFlag(constants.moduleName, constants.needFlag);
-                console.log(needs);
                 // For each of that user's needs,
                 if (needs != undefined) {
-                    console.log("User has needs, so checking");
                     needs.forEach(n => {
                         // if it's greater than the deleted rank
                         if (n.rank > deletedRank) {
                             // decrement rank 
-                            console.log("Decrementing " + n.goal + " from rank " + n.rank);
                             n.rank = parseInt(n.rank - 1);
                             // and set a dirty bit
                             dirtyBit = true;
                         }
                     })
-                    console.log(needs);
                     // If dirty bit is set, replace player's needs
                     if (dirtyBit) {
-                        console.log("Dirty bit, so saving needs:");
-                        console.log(needs);
                         let needCopy = needs;
+                        fplog("Made a copy of " + u.name + "'s needs:");
+                        fplog(needCopy);
                         await u.unsetFlag(constants.moduleName, constants.needFlag);
                         await u.setFlag(constants.moduleName, constants.needFlag, needCopy);
+                        fplog("After saving, their needs are:")
+                        fplog(u.getFlag(constants.moduleName, constants.needFlag));
                     }
+                    // This needs to be inside the async function to avoid a race condition where it 
+                    // redraws the table before all players' data is updated.
+                    Socket.refreshNeedsList();
                 }
             });
-            setTimeout(Socket.refreshNeedsList, constants.tableRefreshDelay);
         })
     }
 }
