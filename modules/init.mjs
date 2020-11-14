@@ -175,3 +175,46 @@ $(document).keydown(function (e) {
         }
     }
 });
+
+// async function fixForgeLinksInCurrentSceneTiles() {
+//     // Load the Asset Library and use it as a cache
+//     var ca = await ForgeAPI.call("assets");
+//     var cache = [];
+//     var i;
+//     for (i = 0; i < ca["assets"].length; i++) {
+//         if (ca["assets"][i].hasOwnProperty('url')) {
+//             cache.push(ca["assets"][i]);
+//         }
+//     }
+//     console.log("Forge has " + ca["assets"].length + ", cache is " + cache.length);
+
+//     // Get all the tiles.
+//     var ti, hits;
+//     var fixes = [];
+
+//     // Go through each one, and see if it has a valid image.
+//     for (i = 28; i < 29; i++) {
+//         ti = game.scenes["entities"][i].data.tiles;
+//         ti.forEach((tile) => {
+//             if (!tile.img.startsWith("https://assets.forge-vtt.com")) {
+//                 console.log("this one doesn't look fixed yet, let's see if we can find it: " + tile.img);
+//                 filename = tile.img.split('/').pop();
+//                 hits = cache.find(a => a.url.split('/').pop() === filename);
+//                 console.log("Hits:");
+//                 console.log(hits);
+//             }
+//             // If not, see if the cache has one.
+//             // If there's only one, change it
+//             if (hits !== undefined) {
+//                 fixes.push({ _id: tile._id, img: hits.url });
+//             }
+//         });
+//         fixes.forEach((fix) => {
+//             console.log("fixing " + fix.id + ", " + fix.img);
+//         });
+//         game.scenes["entities"][i].data.tiles.update(fixes);
+//         // If there's more than one, see if they have the same size and hash.
+//     }
+// }
+
+// fixForgeLinksInCurrentSceneTiles()

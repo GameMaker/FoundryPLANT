@@ -1,0 +1,20 @@
+<div id="FoundryPLANT-needs-list">
+    <section class="needs-list-body">
+        <h1>Current Needs vFPVERSION {{#if isGM}}
+            <button class="danger-button"
+                id="fplant-gm-clear-all-goals-btn">{{localize "FoundryPLANT.GMClearAllGoalsButtonText"}}</button>
+            {{/if}}
+        </h1>
+        <div id="needs-list-div" class="needs-list-div">
+            <table id="needs-list-table">
+                {{> "modules/FoundryPLANT/templates/partials/needs-table.html" isGM=isGM}}
+            </table>
+        </div>
+    </section>
+    <div>
+        <hr>
+        I'd like: <input type=" text" class="fplant-text-field" name="needText" id="fplant-needlist-text">
+        <button id="fplant-needlist-req-btn" class="fplant-button fplant-button-disabled"
+            disabled="true">{{localize "FoundryPLANT.NeedRequestButton"}}</button>
+    </div>
+</div>
