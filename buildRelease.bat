@@ -15,6 +15,7 @@ ECHO.
 IF "%FPVERSION%"=="" GOTO NOVERSION
 
 del module.json
+del templates\needs-list.html
 
 setlocal enabledelayedexpansion
 for /F "tokens=*" %%A in (template.module.json) do (
