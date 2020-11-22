@@ -32,16 +32,21 @@ for /F "tokens=*" %%A in (templates\needs-list.html.template) do (
 
 7z u -aoa FoundryPlant.zip @manifest
 
-git tag %FPVERSION%
+git commit -a -m "Releasing %FPVERSION%"
 
 git push origin master
+
+git tag %FPVERSION%
 
 git push origin --tags
 
 ECHO.
 ECHO.SUCCESS
 ECHO.
-ECHO.Now create a release in github using tag %FPVERSION%, and attach FoundryPlant.zip.
+ECHO.Now:
+ECHO. - Edit the tag in github using tag %FPVERSION%
+ECHO. - Attach FoundryPlant.zip
+ECHO. - Release it
 ECHO.
 
 REM All is well, exit normally
