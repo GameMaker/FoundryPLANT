@@ -166,6 +166,14 @@ export default class NeedsList extends Application {
         });
 
         /**
+         * Head to Github for instructions, feature requests, and bug reports
+         */
+        html.on("click", "#github-link-btn", () => {
+            window.open(
+                "https://github.com/GameMaker/FoundryPLANT", "_blank");
+        });
+
+        /**
          * Deprioritize - increase its rank by 1
          */
         html.on("click", ".fplant-btn-need-down", async (e) => {

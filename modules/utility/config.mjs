@@ -5,12 +5,12 @@ export default class ModuleSettings {
      * Registers various configuration settings for Module
      */
     static register() {
-        game.settings.register(constants.moduleName, constants.settings.debugMode, {
-            name: constants.moduleName + ".Settings." + constants.settings.debugMode + ".Enable",
-            hint: constants.moduleName + ".Settings." + constants.settings.debugMode + ".EnableHint",
+        game.settings.register(constants.moduleName, constants.settings.needList, {
+            name: constants.moduleName + ".Settings." + constants.settings.needList + ".Enable",
+            hint: constants.moduleName + ".Settings." + constants.settings.needList + ".EnableHint",
             scope: "world",
             config: true,
-            default: false,
+            default: true,
             type: Boolean
         });
         game.settings.register(constants.moduleName, constants.settings.hotKeys, {
@@ -28,6 +28,14 @@ export default class ModuleSettings {
             config: true,
             default: "Cheat Sheet",
             type: String
+        });
+        game.settings.register(constants.moduleName, constants.settings.debugMode, {
+            name: constants.moduleName + ".Settings." + constants.settings.debugMode + ".Enable",
+            hint: constants.moduleName + ".Settings." + constants.settings.debugMode + ".EnableHint",
+            scope: "world",
+            config: true,
+            default: false,
+            type: Boolean
         });
     }
 }

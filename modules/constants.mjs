@@ -6,9 +6,10 @@ let constants = {
     msgRefreshNeeds: "updateNeedsTable",
     settings: {
         // These aren't overly useful in the code - but they help with autocompletion in the editor.
-        debugMode: "debugMode",
+        needList: "needList",
         hotKeys: "hotKeys",
-        cheatSheet: "cheatSheet"
+        cheatSheet: "cheatSheet",
+        debugMode: "debugMode"
     }
 };
 export default constants;

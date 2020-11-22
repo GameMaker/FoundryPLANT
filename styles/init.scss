@@ -19,6 +19,15 @@ $footer-size: 32px+2*$footer-padding;
     height: calc(100% - 80px);
 }
 
+.needs-list-body-title {
+    text-align: center;
+}
+
+.needs-list-body-title-bug-link {
+    font-size: 1.15em;
+    padding: 20px 0px;
+}
+
 .needs-list-table {
     margin: 0px !important;
 }
@@ -37,6 +46,10 @@ table {
 .fplant-table-row {
     border-bottom: 1px solid grey;
     margin: 0px;
+}
+
+.dialog-title {
+    width: calc(20%);
 }
 
 // Columns
@@ -96,8 +109,7 @@ table {
 // INPUTS
 //
 #fplant-gm-clear-all-goals-btn {
-    width: calc(100% - 200px);
-    vertical-align: top;
+    // width: 200px;
 }
 
 #fplant-needlist-text {
@@ -124,6 +136,15 @@ table {
 }
 
 .danger-button{
+    width: calc(30%);
     background-color: #800;
     color: #fff;
+    vertical-align: top;
+}
+
+.bug-button {
+    width: calc(30%);
+    background-color: rgb(191, 216, 216);
+    color: rgb(27, 82, 114);
+    vertical-align: top;
 }
