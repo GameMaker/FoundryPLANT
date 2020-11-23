@@ -17,4 +17,10 @@
             </table>
         </div>
     </section>
+    <div>
+        <hr>
+        I'd like: <input type=" text" class="fplant-text-field" name="needText" id="fplant-needlist-text">
+        <button id="fplant-needlist-req-btn" class="fplant-button fplant-button-disabled"
+            disabled="true">{{localize "FoundryPLANT.NeedRequestButton"}}</button>
+    </div>
 </div>
