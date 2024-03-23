@@ -1,0 +1,18 @@
+/* Custom CSS */
+/* Make action / spell filters clearer */
+.dnd5e.sheet .filter-list .filter-item.active {
+	text-shadow: 0px 0px 6px lightgreen;
+	font-weight: bold;
+	color: green;
+}
+
+/* Make links easier to see against parchment */
+.content-link {
+	--color-text-hyperlink: firebrick;
+}
+
+/* Get rid of the "More Details" at the bottom */
+/* of Token Action HUD descriptions. */
+summary {
+	color: black;
+}
