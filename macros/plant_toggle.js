@@ -12,15 +12,15 @@ var player_ids = [/* Alceste */ "KBwdAExcKK0Q5NHk",
                 /* Daiyana */ "9295xomxzUfOJIk2",
                 /* Remo */ "eLuJb5fkLgXKUIOP",
                 /* Ru */ "NXkhkjIFiFMQf8JO"];
-// .
+// What percentage each player's bar fills every tick (see tickTime).
 // Ex: "5" = 10 minutes to fill, 15 = ~3.5 minutes to fill.
-var player_fill_speeds = [/* Alceste */ 3,
+var player_fill_speeds = [/* Alceste */ 2.5,
                 /* Curus */ 4,
-                /* Daiyana */ 5,
+                /* Daiyana */ 4.5,
                 /* Remo */ 3,
                 /* Ru */ 5]
 // Specify how often the bars should increase.
-const tickTime = 1; /* seconds */
+const tickTime = 30; /* seconds */
 // width and height of the character icons, in case you have a lower screen resolution or more characters.
 const iconWidth = 60; /* Pixels */
 const iconHeight = 60; /* Pixels */
