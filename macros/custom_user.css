@@ -1,0 +1,6 @@
+/* Custom CSS - user specific*/
+
+/* Make the editor & journals easier to read */
+.editor-content, .mce-content-body {
+	font-size: 110%;
+}
