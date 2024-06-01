@@ -8,7 +8,7 @@
 
 /* Make links easier to see against parchment */
 .content-link {
-	--color-text-hyperlink: firebrick;
+	--color-text-hyperlink: #820202;
 }
 
 /* Get rid of the "More Details" at the bottom */
